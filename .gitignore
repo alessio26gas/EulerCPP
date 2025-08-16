@@ -1,0 +1,51 @@
+# macOS
+.DS_Store
+
+# Windows thumbnail cache and system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux swap files
+*.swp
+
+# VSCode
+.vscode/
+
+# Visual Studio / Visual Studio Code project files
+*.vcxproj*
+*.sln
+*.user
+*.opensdf
+*.sdf
+*.ipch
+*.cache
+*.VC.db
+
+# JetBrains IDEs (CLion, etc.)
+.idea/
+
+# Output folders
+bin/
+build/
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Ninja build files
+build.ninja
+*.ninja
+
+# Simulation output files
+*.log
+*.rhs
+*.vtk
+*.restart
+
+# Doxygen output
+docs/html/
+docs/latex/
