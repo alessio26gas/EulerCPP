@@ -62,9 +62,9 @@ static inline void constant_reconstruction(eulercpp::Simulation& sim) {
     Fields& fields = sim.fields;
 
     #pragma omp parallel for
-    for (int f = 0; f < mesh.n_faces; f++) {
+    for (int f = 0; f < mesh.n_faces; ++f) {
         int o = mesh.faces[f].owner;
-        for (int v = 0; v < 5; v++) {
+        for (int v = 0; v < 5; ++v) {
             fields.Wf(f, v) = fields.W(o, v);
         }
     }

@@ -175,7 +175,7 @@ const char* Logger::level_prefix(Level level) {
         case Level::WARNING:    return "[WARNING]";
         case Level::ERROR:      return "[ERROR]";
         case Level::RESIDUALS:  return "";
-        default: return "[DEBUG]";
+        default:                return "[DEBUG]";
     }
 }
 
@@ -184,7 +184,7 @@ const char* Logger::level_color(Level level) {
         case Level::SUCCESS: return "\033[92m"; // Green
         case Level::WARNING: return "\033[93m"; // Yellow
         case Level::ERROR:   return "\033[91m"; // Red
-        default: return "\033[0m"; // Reset
+        default:             return "\033[0m";  // Reset
     }
 }
 
@@ -195,7 +195,7 @@ std::string Logger::get_verbosity() {
         case Level::WARNING:    return "WARNING";
         case Level::ERROR:      return "ERROR";
         case Level::RESIDUALS:  return "SILENT";
-        default: return "DEBUG";
+        default:                return "DEBUG";
     }
 }
 

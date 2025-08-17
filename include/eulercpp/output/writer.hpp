@@ -41,11 +41,13 @@ namespace eulercpp {
 class Writer {
 public:
     /**
+     * @enum Format
      * @brief Supported output formats
      */
     enum class Format {
         VTK_BIN,   /**< Binary VTK */
-        VTK_ASCII  /**< ASCII VTK */
+        VTK_ASCII, /**< ASCII VTK */
+        CSV        /**< CSV */
     };
 
     /**

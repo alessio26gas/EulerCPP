@@ -10,7 +10,7 @@ It supports simulations in **1D, 2D (planar or axisymmetric), and full 3D geomet
 
 At its core, EulerCPP uses the **HLLC Riemann solver** for flux computation, combined with **MUSCL reconstruction** and slope limiters to achieve second-order spatial accuracy. Time integration is explicit and multi-stage, suitable for unsteady problems and shock-dominated flows.  
 
-Results are exported in the standard **VTK format** (ASCII or binary), making them easy to visualize with ParaView or similar post-processing tools. Parallelism is supported through **OpenMP**, enabling efficient use of multi-core CPUs.  
+Results are exported in the standard **VTK format** (ASCII or binary) or **CSV format**, making them easy to visualize with ParaView or similar post-processing tools. Parallelism is supported through **OpenMP**, enabling efficient use of multi-core CPUs.  
 
 ## Installation
 

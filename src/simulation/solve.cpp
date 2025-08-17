@@ -92,7 +92,7 @@ void solve(Simulation& sim) {
         physics::update_timestep(sim);
         physics::update_sources(sim);
 
-        for (int stage = 0; stage < input.numerical.time_stages; stage++) {
+        for (int stage = 0; stage < input.numerical.time_stages; ++stage) {
             math::compute_gradients(sim);
             math::reconstruction(sim);
 

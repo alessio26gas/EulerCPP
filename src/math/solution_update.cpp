@@ -52,6 +52,17 @@ namespace eulercpp::math {
  */
 static int inner_iter = 0;
 
+/**
+ * @brief Advances the simulation solution by one time step/stage.
+ *
+ * This function updates the conservative variables of the simulation
+ * based on the numerical fluxes and source terms. It supports multi-stage
+ * time integration methods, using an internal counter to select the
+ * appropriate stage coefficient.
+ *
+ * @param sim Reference to the Simulation object containing
+ *            mesh, fields, and numerical parameters.
+ */
 void advance_solution(Simulation& sim) {
     const auto& input = sim.input;
     const auto& mesh = sim.mesh;

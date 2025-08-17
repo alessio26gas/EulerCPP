@@ -35,6 +35,7 @@
 
 #include <eulercpp/output/writer.hpp>
 #include <eulercpp/output/write_vtk.hpp>
+#include <eulercpp/output/write_csv.hpp>
 #include <eulercpp/output/restart.hpp>
 
 namespace fs = std::filesystem;
@@ -71,6 +72,9 @@ void Writer::save(const Simulation& sim) {
             break;
         case Format::VTK_ASCII:
             write_vtk_ascii(sim, filepath);
+            break;
+        case Format::CSV:
+            write_csv(sim, filepath);
             break;
         default:
             throw std::runtime_error("Unsupported output format");

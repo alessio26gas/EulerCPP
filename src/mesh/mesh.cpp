@@ -114,11 +114,11 @@ void Mesh::init_boundaries(const Input& input) {
     constexpr double TOLERANCE = 1e-12;
 
     #pragma omp parallel for
-    for (int i = 0; i < n_faces; i++) {
+    for (int i = 0; i < n_faces; ++i) {
         const auto& c = faces[i].centroid;
         const double x = c[0], y = c[1], z = c[2];
 
-        for (int b = 0; b < input.bc.n_boundaries; b++) {
+        for (int b = 0; b < input.bc.n_boundaries; ++b) {
             const auto& bc = input.bc.boundaries[b];
             if (x <= bc.xmax + TOLERANCE && x >= bc.xmin - TOLERANCE &&
                 y <= bc.ymax + TOLERANCE && y >= bc.ymin - TOLERANCE &&

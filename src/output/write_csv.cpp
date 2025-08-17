@@ -19,12 +19,9 @@
     limitations under the License.
 \* -------------------------------------------------------------------------- */
 /**
- * @file restart.cpp
- * @brief Implementation of restart file writing functionality.
+ * @file write_csv.cpp
+ * @brief Implementation of functions to save simulation data in CSV format.
  *
- * This file implements functions for saving the current simulation state
- * to a restart file, allowing simulations to be resumed later.
- * 
  * @author Alessio Improta
  */
 
@@ -38,47 +35,46 @@
 namespace eulercpp {
 
 /**
- * @brief Writes a restart file for the given simulation.
+ * @brief Write simulation data to a CSV file.
  *
- * The restart file contains:
- * - Current iteration number.
- * - Simulation time.
- * - Number of elements in the mesh.
- * - Number of conserved variables.
- * - Field values for each element.
- *
- * @param sim The simulation object containing the mesh, fields, and status.
- * @param filepath Path to the restart file to write.
- *
- * @note Overwrites existing files with the same name.
+ * @param sim Simulation object containing mesh and field data
+ * @param filepath Path to the output CSV file
  */
-void write_restart(const Simulation& sim, const std::string& filepath) {
-    Logger::info() << "Saving restart file...";
+void write_csv(const Simulation& sim, const std::string& filepath) {
+    Logger::info() << "Saving solution as CSV...";
 
     const Mesh& mesh = sim.mesh;
     const Fields& fields = sim.fields;
     const Input& input = sim.input;
 
-    std::ofstream ofs(filepath);
+    std::ofstream ofs(filepath + ".csv");
     if (!ofs) {
-        Logger::warning() << "Failed to open file: " << filepath;
+        Logger::warning() << "Failed to open file: " << filepath << ".csv";
         return;
     }
 
     ofs << std::scientific << std::setprecision(7);
 
-    ofs << "# EULERCPP Restart File\n";
+    ofs << "X,Y,Z,Density,VelocityX,VelocityY,VelocityZ,"
+           "Pressure,Temperature,Mach\n";
 
-    ofs << sim.status.iteration << "\n"
-        << sim.status.time << "\n"
-        << sim.mesh.n_elements << "\n"
-        << 5 << "\n";
+    const float R = input.fluid.R;
+    const float gam = input.fluid.gamma;
 
-    for (int i = 0; i < sim.mesh.n_elements; ++i) {
-        for (int v = 0; v < 5; ++v) {
-            ofs << sim.fields.W(i, v) << " ";
-        }
-        ofs << "\n";
+    for (int i = 0; i < mesh.n_elements; ++i) {
+        const auto& c = mesh.elements[i].centroid;
+        const float rho = fields.W(i, 0);
+        const float u = fields.W(i, 1) / rho;
+        const float v = fields.W(i, 2) / rho;
+        const float w = fields.W(i, 3) / rho;
+        const float V2 = u*u + v*v + w*w;
+        const float p = (gam-1.0)*(fields.W(i, 4) - 0.5*rho*V2);
+        const float T = p / rho / R;
+        const float M = std::sqrt(V2 / (gam * R * T));
+
+        ofs << c[0] << "," << c[1] << "," << c[2] << ","
+            << rho << "," << u << "," << v << "," << w << ","
+            << p << "," << T << "," << M << "\n";
     }
 
     ofs.close();

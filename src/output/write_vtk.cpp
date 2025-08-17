@@ -33,6 +33,7 @@
 #include <fstream>
 #include <cmath>
 #include <iomanip>
+#include <omp.h>
 
 #include <eulercpp/mesh/elements.hpp>
 #include <eulercpp/simulation/simulation.hpp>
@@ -40,6 +41,12 @@
 
 namespace eulercpp {
 
+/**
+ * @brief Write simulation data to a VTK file in ASCII format.
+ *
+ * @param sim Simulation object containing mesh and field data
+ * @param filepath Path to the output VTK file
+ */
 void write_vtk_ascii(const Simulation& sim, const std::string& filepath) {
     Logger::info() << "Saving solution as VTK ASCII...";
 
@@ -135,23 +142,61 @@ void write_vtk_ascii(const Simulation& sim, const std::string& filepath) {
 
     ofs << "CELL_DATA " << mesh.n_elements << "\n";
 
+    const float R = input.fluid.R;
+    const float gam = input.fluid.gamma;
+
+    std::vector<std::array<float, 3>> velocity(mesh.n_elements);
+    std::vector<float> pressure(mesh.n_elements);
+    std::vector<float> temperature(mesh.n_elements);
+    std::vector<float> mach(mesh.n_elements);
+
+    #pragma omp parallel for
+    for (int i = 0; i < mesh.n_elements; ++i) {
+        const float rho = fields.W(i, 0);
+        const float u   = fields.W(i, 1) / rho;
+        const float v   = fields.W(i, 2) / rho;
+        const float w   = fields.W(i, 3) / rho;
+        const float V2  = u*u + v*v + w*w;
+
+        const float p = (gam - 1.0f) * (fields.W(i, 4) - 0.5f * rho * V2);
+        const float T = p / (rho * R);
+        const float a2 = gam * p / rho;
+
+        velocity[i] = {u, v, w};
+        pressure[i] = p;
+        temperature[i] = T;
+        mach[i] = std::sqrt(V2 / a2);
+    }
+
     ofs << "SCALARS Density float 1\n";
     ofs << "LOOKUP_TABLE default\n";
     for (int i = 0; i < mesh.n_elements; ++i) {
         ofs << fields.W(i, 0) << "\n";
     }
 
-    ofs << "VECTORS Momentum float\n";
+    ofs << "VECTORS Velocity float\n";
     for (int i = 0; i < mesh.n_elements; ++i) {
-        ofs << fields.W(i, 1) << " "
-            << fields.W(i, 2) << " "
-            << fields.W(i, 3) << "\n";
+        ofs << velocity[i][0] << " "
+            << velocity[i][1] << " "
+            << velocity[i][2] << "\n";
     }
 
-    ofs << "SCALARS Energy float 1\n";
+    ofs << "SCALARS Pressure float 1\n";
     ofs << "LOOKUP_TABLE default\n";
     for (int i = 0; i < mesh.n_elements; ++i) {
-        ofs << fields.W(i, 4) << "\n";
+        ofs << pressure[i] << "\n";
+    }
+
+    ofs << "SCALARS Temperature float 1\n";
+    ofs << "LOOKUP_TABLE default\n";
+    for (int i = 0; i < mesh.n_elements; ++i) {
+        ofs << temperature[i] << "\n";
+    }
+
+    ofs << "SCALARS Mach float 1\n";
+    ofs << "LOOKUP_TABLE default\n";
+    for (int i = 0; i < mesh.n_elements; ++i) {
+        ofs << mach[i] << "\n";
     }
 
     ofs.close();
@@ -173,6 +218,12 @@ inline float to_big_endian(float value) {
     return value;
 }
 
+/**
+ * @brief Write simulation data to a VTK file in binary format.
+ *
+ * @param sim Simulation object containing mesh and field data
+ * @param filepath Path to the output VTK file
+ */
 void write_vtk_bin(const Simulation& sim, const std::string& filepath) {
     Logger::info() << "Saving solution as VTK binary...";
 
@@ -280,41 +331,71 @@ void write_vtk_bin(const Simulation& sim, const std::string& filepath) {
             case ElementType::PRISM:         vtk_type = 13; break;
             case ElementType::PYRAMID:       vtk_type = 14; break;
             case ElementType::POLYHEDRON:    vtk_type = 42; break;
-            default:            vtk_type = 42; break;
+            default:                         vtk_type = 42; break;
         }
         vtk_type = to_big_endian(vtk_type);
         ofs.write(reinterpret_cast<char*>(&vtk_type), sizeof(int));
     }
     ofs << "\n";
 
-
     // Cell data
     ofs << "CELL_DATA " << mesh.n_elements << "\n";
 
-    auto write_scalar = [&](const char* name, auto accessor) {
+    const float R = input.fluid.R;
+    const float gam = input.fluid.gamma;
+
+    std::vector<float> density(mesh.n_elements);
+    std::vector<std::array<float, 3>> velocity(mesh.n_elements);
+    std::vector<float> pressure(mesh.n_elements);
+    std::vector<float> temperature(mesh.n_elements);
+    std::vector<float> mach(mesh.n_elements);
+
+    #pragma omp parallel for
+    for (int i = 0; i < mesh.n_elements; ++i) {
+        const float rho = fields.W(i, 0);
+        const float u   = fields.W(i, 1) / rho;
+        const float v   = fields.W(i, 2) / rho;
+        const float w   = fields.W(i, 3) / rho;
+        const float V2  = u*u + v*v + w*w;
+
+        const float p = (gam - 1.0f) * (fields.W(i, 4) - 0.5f * rho * V2);
+        const float T = p / (rho * R);
+        const float a2 = gam * p / rho;
+
+        density[i] = rho;
+        velocity[i] = {u, v, w};
+        pressure[i] = p;
+        temperature[i] = T;
+        mach[i] = std::sqrt(V2 / a2);
+    }
+
+    auto write_scalar = [&](const char* name, const std::vector<float>& data) {
         ofs << "SCALARS " << name << " float 1\n";
         ofs << "LOOKUP_TABLE default\n";
         for (int i = 0; i < mesh.n_elements; ++i) {
-            float val = to_big_endian(static_cast<float>(accessor(i)));
-            ofs.write(reinterpret_cast<char*>(&val), sizeof(float));
+            float val = to_big_endian(data[i]);
+            ofs.write(reinterpret_cast<const char*>(&val), sizeof(float));
         }
         ofs << "\n";
     };
 
-    write_scalar("Density", [&](int i) { return fields.W(i, 0); });
-    write_scalar("Energy", [&](int i) { return fields.W(i, 4); });
+    write_scalar("Density", density);
 
     // Velocity vector
-    ofs << "VECTORS Momentum float\n";
+    ofs << "VECTORS Velocity float\n";
     for (int i = 0; i < mesh.n_elements; ++i) {
-        float vx = to_big_endian(static_cast<float>(fields.W(i, 1)));
-        float vy = to_big_endian(static_cast<float>(fields.W(i, 2)));
-        float vz = to_big_endian(static_cast<float>(fields.W(i, 3)));
+        float vx = to_big_endian(velocity[i][0]);
+        float vy = to_big_endian(velocity[i][1]);
+        float vz = to_big_endian(velocity[i][2]);
         ofs.write(reinterpret_cast<char*>(&vx), sizeof(float));
         ofs.write(reinterpret_cast<char*>(&vy), sizeof(float));
         ofs.write(reinterpret_cast<char*>(&vz), sizeof(float));
     }
     ofs << "\n";
+
+    write_scalar("Pressure", pressure);
+    write_scalar("Temperature", temperature);
+    write_scalar("Mach", mach);
 
     ofs.close();
 }

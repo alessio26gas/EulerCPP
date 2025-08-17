@@ -69,7 +69,7 @@ int main(int argc, char* argv[]) {
     Logger::info() << "|___|\\___/|____|___|_|_\\\e[1;96m\\___|_| |_|  ";
     Logger::info() << "";
     Logger::info() << "EulerCPP - A C++ 3D Euler CFD solver";
-    Logger::info() << "Version 0.1.0 (c) 2025 Alessio Improta";
+    Logger::info() << "Version 0.2.0 (c) 2025 Alessio Improta";
     Logger::info() << "";
 
     /// @brief Main simulation object containing the entire simulation state.
