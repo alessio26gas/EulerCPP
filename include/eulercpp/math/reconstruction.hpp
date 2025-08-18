@@ -25,7 +25,7 @@
  * This header provides support for reconstructing solution values at
  * cell faces from cell-centered values. Two main reconstruction schemes
  * are implemented:
- * 
+ *
  * - CONSTANT: piecewise constant reconstruction.
  * - MUSCL   : Monotone Upstream-Centered Scheme for Conservation Laws.
  *

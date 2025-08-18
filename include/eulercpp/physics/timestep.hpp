@@ -24,9 +24,9 @@
  *
  * This file declares functions that compute the next timestep based on
  * CFL constraints using the current state of the simulation.
- * 
+ *
  * Parallel computation using OpenMP is supported for efficiency.
- * 
+ *
  * @author Alessio Improta
  */
 

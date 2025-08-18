@@ -63,7 +63,7 @@ std::vector<int> parse_int_vector(const std::string& str);
 
 /**
  * @brief Parse a comma-separated string into a fixed-size std::array<T, N>.
- * 
+ *
  * @tparam T Data type to parse
  * @tparam N Number of elements expected
  * @param s Comma-separated input string

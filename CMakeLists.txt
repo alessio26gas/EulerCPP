@@ -43,20 +43,24 @@ else()
     target_link_libraries(eulercpp PRIVATE m)
 endif()
 
+# Set Release build if unspecified
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+
 # Compiler optimization flags for Release builds
 if(APPLE)
-    # Optional: OpenMP setup for macOS (requires Homebrew install)
+    # OpenMP setup for macOS (requires Homebrew install)
     include_directories("/opt/homebrew/opt/libomp/include")
-    target_compile_options(eulercpp PRIVATE
-        $<$<CONFIG:Release>:-O3 -march=native -fdata-sections 
-        -ffunction-sections -flto=auto -fopenmp -DNDEBUG>
-    )
+    set(CMAKE_C_COMPILER "/opt/homebrew/opt/llvm/bin/clang")
+    set(CMAKE_C_FLAGS_RELEASE "-O3 -march=native -fdata-sections
+                               -ffunction-sections -flto=auto 
+                               -fopenmp -DNDEBUG")
 else()
-    target_compile_options(eulercpp PRIVATE
-        $<$<CONFIG:Release>:-O3 -march=native -fdata-sections 
-        -ffunction-sections -flto=auto -ffat-lto-objects -fuse-linker-plugin 
-        -fopenmp -DNDEBUG>
-    )
+    set(CMAKE_C_FLAGS_RELEASE "-O3 -march=native -fdata-sections 
+                               -ffunction-sections -flto=auto 
+                               -ffat-lto-objects -fuse-linker-plugin 
+                               -fopenmp -DNDEBUG")
 endif()
 
 # Enable Link-Time Optimization (LTO)

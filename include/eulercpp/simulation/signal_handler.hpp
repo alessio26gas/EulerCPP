@@ -46,10 +46,10 @@ static Simulation* g_sim_ptr = nullptr;
 
 /**
  * @brief Signal handler to gracefully stop the simulation.
- * 
+ *
  * This function sets the stopped flag in the simulation status to true.
  * It allows the simulation to finish the current iteration and exit cleanly.
- * 
+ *
  * @param signum Signal number.
  */
 void signal_handler(int signum) {
@@ -59,7 +59,7 @@ void signal_handler(int signum) {
 
 /**
  * @brief Setup signal handling for the simulation.
- * 
+ *
  * @param sim Reference to the Simulation object.
  */
 void setup_signal_handler(Simulation& sim) {

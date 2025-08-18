@@ -25,10 +25,10 @@
  * This file provides the interface for running the time-stepping solver,
  * updating fields, computing fluxes, applying boundary conditions and 
  * corrections, and writing output periodically.
- * 
+ *
  * The solver handles multi-stage time integration and supports graceful
  * termination and restart functionality.
- * 
+ *
  * @author Alessio Improta
  */
 
@@ -40,7 +40,7 @@ namespace eulercpp {
 
 /**
  * @brief Perform the main time-stepping solver loop.
- * 
+ *
  * This function advances the simulation by iteratively updating the solution
  * fields. It performs the following steps in each iteration:
  * - Prepare solution for update
@@ -51,7 +51,7 @@ namespace eulercpp {
  * - Advance solution in time
  * - Apply physical corrections
  * - Print residuals and save output periodically
- * 
+ *
  * The solver respects maximum iteration count, maximum simulation time,
  * and allows for early stopping via signal handling.
  *

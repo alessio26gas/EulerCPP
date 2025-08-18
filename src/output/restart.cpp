@@ -24,7 +24,7 @@
  *
  * This file implements functions for saving the current simulation state
  * to a restart file, allowing simulations to be resumed later.
- * 
+ *
  * @author Alessio Improta
  */
 

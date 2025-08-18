@@ -24,7 +24,7 @@
  *
  * Provides functions to handle axisymmetric mode.
  * Parallel computation using OpenMP is supported.
- * 
+ *
  * @author Alessio Improta
  */
 

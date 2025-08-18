@@ -25,9 +25,9 @@
  * This file contains the implementation of convective flux computation
  * across mesh faces. It uses a Riemann solver in the face-normal coordinate 
  * system and projects the fluxes back to the global coordinate system.
- * 
+ *
  * Parallelized with OpenMP for improved performance.
- * 
+ *
  * @author Alessio Improta
  */
 

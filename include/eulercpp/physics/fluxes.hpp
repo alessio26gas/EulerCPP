@@ -24,9 +24,9 @@
  *
  * Provides functions to compute convective fluxes across mesh faces using 
  * Riemann solvers and mapping fluxes back to the element coordinate system.
- * 
+ *
  * Supports parallel execution using OpenMP.
- * 
+ *
  * @author Alessio Improta
  */
 

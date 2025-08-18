@@ -27,7 +27,7 @@
  *
  * Provides a single interface function `riemann` to compute fluxes
  * from left and right states in the face-normal direction.
- * 
+ *
  * @author Alessio Improta
  */
 
@@ -36,10 +36,34 @@
 namespace eulercpp::physics {
 
 /**
+ * @enum Riemann
+ * @brief Supported Riemann solvers.
+ */
+enum class Riemann {
+    RUSANOV,    ///< Rusanov solver
+    HLL,        ///< HLL (Harten-Lax-van Leer) solver
+    HLLC,       ///< HLLC (Harten-Lax-van Leer-Contact) solver
+};
+
+/**
+ * @brief Function pointer type for Riemann solvers.
+ */
+using RiemannSolver = void(*)(
+    const double*, const double*, double*, const double
+);
+
+/**
+ * @brief Initializes the Riemann solver.
+ *
+ * @param solver Selected Riemann solver.
+ */
+void init_riemann(Riemann solver);
+
+/**
  * @brief Compute the Riemann flux across a face.
  *
- * This function implements a 1D Riemann solver in the face-normal direction
- * using left and right primitive/conserved states.
+ * This function computes the Riemann flux across a face using the selected
+ * Riemann solver function.
  *
  * @param WL Pointer to the left state array.
  * @param WR Pointer to the right state array.
@@ -48,4 +72,4 @@ namespace eulercpp::physics {
  */
 void riemann(const double* WL, const double* WR, double* F, const double gam);
 
-} // eulercpp::physics
+} // namespace eulercpp::physics

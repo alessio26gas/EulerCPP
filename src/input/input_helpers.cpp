@@ -100,7 +100,11 @@ std::map<std::string, std::string> parse_config_file(const std::string& filename
     while (std::getline(file, line)) {
         line.erase(line.find_last_not_of("\r\n") + 1);
 
-        if (line.empty() || line.find('=') == std::string::npos)
+        std::string trimmed = trim(line);
+        if (trimmed.empty() || trimmed[0] == '#')
+            continue;
+
+        if (line.find('=') == std::string::npos)
             continue;
 
         std::string key, value;

@@ -35,6 +35,7 @@
 #include <vector>
 #include <array>
 #include <cstring>
+#include <omp.h>
 
 #include <eulercpp/mesh/mesh.hpp>
 #include <eulercpp/output/logger.hpp>
@@ -218,21 +219,24 @@ public:
     }
 
     /**
-     * @brief Compute the L1 residual for a given variable over all elements.
-     * @param var Variable index
-     * @return Sum of absolute RHS entries for the variable
+     * @brief Compute the L1 residuals over all elements.
+     *
+     * @return Sums of absolute RHS entries.
      */
-    const double get_residuals(int var) const noexcept {
-        double residual = 0.0;
+    const std::array<double, 5> get_residuals() const noexcept {
+        std::array<double, 5> residual = {0.0};
+        #pragma omp parallel for
         for (int i = 0; i < n_elements; ++i) {
-            residual += std::abs(b(i, var));
+            for (int v = 0; v < n_var; ++v) {
+                residual[v] += std::abs(rhs[i * n_var + v]);
+            }
         }
         return residual;
     }
 
     /**
      * @brief Allocate and initialize all field arrays.
-     * 
+     *
      * Initializes conservative variables, source terms, gradients,
      * face values, fluxes, and RHS vectors to zero.
      *

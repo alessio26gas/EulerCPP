@@ -56,7 +56,7 @@ namespace eulercpp {
 
 /**
  * @brief Perform the main time-stepping solver loop.
- * 
+ *
  * This function advances the simulation by iteratively updating the solution
  * fields. It performs the following steps in each iteration:
  * - Prepare solution for update
@@ -67,7 +67,7 @@ namespace eulercpp {
  * - Advance solution in time
  * - Apply physical corrections
  * - Print residuals and save output periodically
- * 
+ *
  * The solver respects maximum iteration count, maximum simulation time,
  * and allows for early stopping via signal handling.
  *
@@ -114,9 +114,10 @@ void solve(Simulation& sim) {
 
         if (iter % input.output.prints_delay == 0) {
             auto s = Logger::residuals();
+            const std::array<double, 5> residuals = fields.get_residuals();
             s << iter << status.time;
             for (int v = 0; v < 5; ++v) {
-                s << fields.get_residuals(v);
+                s << residuals[v];
             }
         }
 

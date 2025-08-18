@@ -1,0 +1,130 @@
+# EulerCPP example: Supersonic cylinder
+
+# Notes:
+# - Any line starting with `#` is a comment. 
+# - Lines with an `=` sign are parsed as key = value pairs.
+
+# Logger settings
+# Controls verbosity and logging output.
+# verbosity: (0 = silent, ..., 5 = debug)
+# log_file: optional path to log file
+# rhs_file: optional file for residual history 
+#           (if provided, residuals are written only there)
+verbosity=4
+log_file=cylinder.log
+
+# Physics settings
+# dimension: problem dimensionality
+# 0 = 1D, 1 = 2D (XY), 2 = Axisymmetric (XY, X-axis), 3 = 3D
+dimension=1
+
+# Mesh settings
+# mesh_file: path to mesh file in gmsh 2.2 format (.msh).
+# min_volume: minimum allowed element volume.
+mesh_file=cylinder.msh
+min_volume=1.0e-18
+
+# Fluid settings
+# R: specific gas constant [J/kgK]
+# gamma: heat capacity ratio
+R=287.0
+gamma=1.4
+
+# Solver settings
+# time_stages: number of time integration stages
+# a: coefficients for multi-stage time integration
+# CFL: CFL number
+# maxtime: maximum physical simulation time
+# maxiter: maximum number of iterations
+# reconstruction: 0 = 1st order, 1 = 2nd order (MUSCL)
+# limiter: 
+#    0 = minmod, 1 = superbee, 2 = van Leer,
+#    3 = Venkatakrishnan, 4 = modified Venkatakrishnan
+# riemann:
+#    0 = Rusanov, 1 = HLL, 2 = HLLC
+time_stages=1
+a=1.0
+CFL=0.7
+maxtime=1.0
+maxiter=30000
+reconstruction=1
+limiter=3
+riemann=2
+
+# Output settings
+# output_format: 0 = VTK binary, 1 = VTK ASCII, 2 = CSV
+# output_delay: iterations between solution dumps
+# prints_delay: iterations between printing residuals
+# prints_info_delay: iterations between printing header
+# restart_delay: iterations between restart file saves
+# output_folder: directory for output files
+# output_name: prefix for output/restart files
+output_format=0
+output_delay=1000
+prints_delay=10
+prints_info_delay=200
+restart_delay=500
+output_folder=output
+output_name=cylinder
+
+# Initial conditions
+# - restart: 0 = start from scratch, 1 = start from restart file
+# - restart_file: path to restart file (if restart=1)
+# - initial_variables: 
+#    0 = specify T0
+#    1 = specify rho0
+# - additional_blocks: number of override regions (boxes)
+#
+# Default block defines the background state.
+# Each block_b overrides it in a defined region:
+#   p_b, rho_b (or T_b), u_b, v_b, w_b
+#   xmin_b, xmax_b, ymin_b, ymax_b, zmin_b, zmax_b
+restart=0
+restart_file=output/cylinder.restart
+initial_variables=1
+additional_blocks=0
+
+# Default block
+p_0=101325.0
+T_0=300.0
+u_0=1040.0
+v_0=0
+w_0=0
+
+# Boundary conditions
+# n_boundaries: number of boundary conditions
+# For each boundary:
+#   bc_X: boundary type (integer code)
+#       - 0 = Supersonic inflow
+#       - 1 = Supersonic outflow
+#       - 2 = Stagnation inlet
+#       - 3 = Subsonic inflow
+#       - 4 = Pressure outlet
+#       - 5 = Wall (same as symmetry)
+#       - 6 = Symmetry condition
+#       - 7 = Slip wall (same as symmetry)
+#       - 8 = Moving wall (same as symmetry)
+#       - 9 = Axis condition
+#   bc_X_var_Y: boundary variables (depend on type)
+#       Supersonic inflow: [Mach, p, T, alpha, phi]
+#           (alpha and phi are flow direction angles)
+#       Stagnation inlet: [Htot, Ptot, Psup, alpha, phi]
+#       Subsonic inflow: [T, u, v, w]
+#       Pressure outlet: [p]
+#       Others: []
+#   bc_X_xmin, xmax, ymin, ymax, zmin, zmax: bounding box
+n_boundaries=3
+bc_1=6
+
+# Supersonic inlet
+bc_2=0
+bc_2_xmax=-2.0
+bc_2_var_1=3.0
+bc_2_var_2=101325.0
+bc_2_var_3=300.0
+bc_2_var_4=0.0
+bc_2_var_5=0.0
+
+# Supersonic outlet
+bc_3=1
+bc_3_xmin=4.0

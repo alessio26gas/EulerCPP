@@ -37,6 +37,7 @@
 
 #include <eulercpp/math/limiters.hpp>
 #include <eulercpp/math/reconstruction.hpp>
+#include <eulercpp/physics/riemann.hpp>
 
 namespace eulercpp {
 
@@ -52,6 +53,9 @@ struct Numerical {
 
     /** Limiter function. */
     math::Limiter limiter = math::Limiter::MINMOD;
+
+    /** Riemann solver. */
+    physics::Riemann riemann = physics::Riemann::HLLC;
 
     int time_stages = 1;    /**< Number of stages for multi-stage time integration scheme. */
     std::vector<double> a;  /**< Multi-stage coefficients. */

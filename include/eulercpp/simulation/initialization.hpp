@@ -25,9 +25,9 @@
  * This file declares functions responsible for setting the initial conditions
  * of the simulation, initializing limiters and reconstruction schemes, 
  * configuring axisymmetry if needed, and setting up output formats.
- * 
+ *
  * Functions also handle restart file loading for continuing simulations.
- * 
+ *
  * @author Alessio Improta
  */
 

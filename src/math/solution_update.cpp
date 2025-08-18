@@ -46,7 +46,7 @@ namespace eulercpp::math {
 
 /** 
  * @brief Internal counter for multi-stage time integration.
- * 
+ *
  * This static variable keeps track of the current stage in
  * multi-stage integration schemes.
  */

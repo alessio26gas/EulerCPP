@@ -42,7 +42,7 @@ namespace eulercpp::physics {
  * unphysical conserved variables (negative density or pressure). If found, 
  * the solution is corrected using weighted averages of neighboring cells' 
  * previous state.
- * 
+ *
  * Parallelized with OpenMP for improved performance.
  *
  * @param sim The Simulation object.

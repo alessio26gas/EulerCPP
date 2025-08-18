@@ -25,9 +25,9 @@
  * This file declares functions that compute source terms for the Euler
  * equations, including handling of axisymmetric contributions.
  * Source terms are applied per element and scaled by element volume.
- * 
+ *
  * Parallel computation using OpenMP is supported.
- * 
+ *
  * @author Alessio Improta
  */
 

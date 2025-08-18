@@ -25,7 +25,7 @@
  * This header provides the Node structure used to represent a mesh node
  * in 3D space, including a unique identifier and Cartesian coordinates.
  * It also declares the function to read nodes from a mesh file into a Mesh.
- * 
+ *
  * @author Alessio Improta
  */
 

@@ -40,7 +40,7 @@ namespace eulercpp {
 
 /**
  * @brief Represents a complete simulation object.
- * 
+ *
  * This structure aggregates all major components of a simulation:
  * - Input parameters for configuration
  * - Computational mesh

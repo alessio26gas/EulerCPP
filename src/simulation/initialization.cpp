@@ -189,6 +189,11 @@ void initialize_simulation(Simulation& sim) {
                     << static_cast<int>(sim.input.numerical.reconstruction)
                     << " selected.";
 
+    physics::init_riemann(sim.input.numerical.riemann);
+    Logger::debug() << "Riemann solver "
+                    << static_cast<int>(sim.input.numerical.riemann)
+                    << " selected.";
+
     if (sim.input.physics.dimension == 2) {
         physics::init_axisymmetry(sim);
         Logger::debug() << "Simulation set to axisymmetric mode.";

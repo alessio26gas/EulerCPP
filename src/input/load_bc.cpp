@@ -54,7 +54,7 @@ namespace eulercpp {
  *
  * This function reads boundary configuration parameters from
  * a map of string key–value pairs and updates the `Input` structure.
- * 
+ *
  * @param config Map of configuration key–value pairs.
  * @param input  Input structure to update.
  */

@@ -23,7 +23,7 @@
  * @brief Boundary conditions handling.
  *
  * Provides initialization and application of physical boundary conditions.
- * 
+ *
  * Uses OpenMP for parallel processing over boundary faces.
  *
  * @author Alessio Improta

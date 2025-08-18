@@ -34,10 +34,10 @@
  * - Van Leer
  * - Venkatakrishnan
  * - Modified Venkatakrishnan
- * 
+ *
  * These limiters are used to prevent non-physical oscillations in
  * numerical solutions of hyperbolic PDEs.
- * 
+ *
  * @author Alessio Improta
  */
 
@@ -88,7 +88,7 @@ inline double minmod(double rf) {
  * first appear in Sweby (1984) already. The name of A or B (or nickname bee) 
  * comes from the A-function or B-function used in the early literatures to 
  * quantify the slope.
- * 
+ *
  * It returns 2.0 for rf < 0.5, and computes a value using rf for rf >= 0.5.
  *
  * @param rf The ratio of differences used in the reconstruction.
@@ -124,7 +124,7 @@ inline double vanleer(double rf) {
  * return a value of about unity. Hence, there will be no limiting at all 
  * and wiggles could occur in the solution.
  * In this implementation the parameter is set to zero (K = 0).
- * 
+ *
  * @param rf The ratio of differences used in the reconstruction.
  * @return The limited value.
  */

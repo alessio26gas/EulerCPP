@@ -51,6 +51,7 @@
 #include <eulercpp/input/load_numerical.hpp>
 #include <eulercpp/math/limiters.hpp>
 #include <eulercpp/math/reconstruction.hpp>
+#include <eulercpp/physics/riemann.hpp>
 
 namespace eulercpp {
 
@@ -100,6 +101,12 @@ void load_numerical(
     it = config.find("limiter");
     if (it != config.end())
         input.numerical.limiter = static_cast<math::Limiter>(
+            std::stoi(it->second)
+        );
+
+    it = config.find("riemann");
+    if (it != config.end())
+        input.numerical.riemann = static_cast<physics::Riemann>(
             std::stoi(it->second)
         );
 
