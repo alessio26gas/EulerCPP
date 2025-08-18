@@ -68,7 +68,8 @@ void subsonic_inlet(
     const double vext = fields.Wf(f, 2)/rhoext;
     const double wext = fields.Wf(f, 3)/rhoext;
     const double kext = 0.5 * (uext*uext+vext*vext+wext*wext);
-    const double p = (gam-1.0)*(Eext-rhoext*kext);
+    double p = (gam-1.0)*(Eext-rhoext*kext);
+    if (p < 0.0) p = 1.0e-14;
 
     const double rho = p / R / T;
     const double un = u * n[0] + v * n[1] + w * n[2];

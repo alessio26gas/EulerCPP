@@ -59,7 +59,7 @@ void axisymmetry_sources(Simulation& sim) {
         )/fields.W(i, 0);
         const double E = fields.W(i, 4);
         double p = (gam-1.0)*(E-0.5*rhoV2);
-        if (p < 0) p = 1.0e-14;
+        if (p < 0.0) p = 1.0e-14;
         fields.S(i, 2) += p / mesh.elements[i].centroid[1];
     }
 }

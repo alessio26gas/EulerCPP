@@ -58,41 +58,40 @@ void pressure_outlet(
     Fields& fields
 ) {
     const auto& n = face.normal;
+    const double gam = input.fluid.gamma;
     double rho = fields.Wf(f, 0);
-    double E = fields.Wf(f, 4);
     double u = fields.Wf(f, 1)/rho;
     double v = fields.Wf(f, 2)/rho;
     double w = fields.Wf(f, 3)/rho;
-    double p = (input.fluid.gamma-1.0)*(E-0.5*rho*(u*u+v*v+w*w));
-    if (p < 0) p = 1.0e-14;
+    double E = fields.Wf(f, 4);
+    double p = (gam-1.0)*(E-0.5*rho*(u*u+v*v+w*w));
+    if (p < 0.0) p = 1.0e-14;
     double un = u * n[0] + v * n[1] + w * n[2];
 
-    double a = std::sqrt(input.fluid.gamma * p / rho);
-    if (un < a) {
-        const double pb = bc.value[0];
+    double a = std::sqrt(gam * p / rho);
+    if (un < 1.0e-14) {
+        // Reverse flow
+        un = 0.0;
 
+    } else if (un < a) {
+        // Pressure outlet condition
         const auto& t1 = face.t1, t2 = face.t2;
         const double ut1 = u * t1[0] + v * t1[1] + w * t1[2];
         const double ut2 = u * t2[0] + v * t2[1] + w * t2[2];
-        const double gamma  = a * a * rho / p;
 
-        const double expo  = (gamma - 1.0) / (2.0 * gamma);
-        const double ab   = a * std::pow(pb / p, expo);
-        const double unb  = un + 2.0 / (gamma - 1.0) * (a - ab);
-        const double rhob = gamma * pb / (ab * ab);
+        const double pb = bc.value[0];
+        const double ab = a * std::pow(pb / p, (gam-1.0)/(2.0*gam));
 
-        const double ubx = n[0] * unb + t1[0] * ut1 + t2[0] * ut2;
-        const double uby = n[1] * unb + t1[1] * ut1 + t2[1] * ut2;
-        const double ubz = n[2] * unb + t1[2] * ut1 + t2[2] * ut2;
-
-        const double V2  = ubx * ubx + uby * uby + ubz * ubz;
-        const double Eb  = pb / (gamma - 1.0) + 0.5 * rhob * V2;
-
-        rho = rhob;
         p   = pb;
-        u   = ubx; v = uby; w = ubz;
-        E   = Eb;
-        un  = unb;
+        rho = gam * p / (ab * ab);
+        un  = un + 2.0 / (gam-1.0) * (a - ab);
+        u   = n[0] * un + t1[0] * ut1 + t2[0] * ut2;
+        v   = n[1] * un + t1[1] * ut1 + t2[1] * ut2;
+        w   = n[2] * un + t1[2] * ut1 + t2[2] * ut2;
+        E   = p / (gam-1.0) + 0.5*rho*(u*u+v*v+w*w);
+
+    } else {
+        // Supersonic outlet condition
     }
 
     fields.F(f, 0) = rho * un;

@@ -4,9 +4,6 @@ It supports an optional "-clean" switch to remove the existing build directory
 before building.
 #>
 
-# Stop execution on any error
-$ErrorActionPreference = "Stop"
-
 param (
     [switch]$clean
 )

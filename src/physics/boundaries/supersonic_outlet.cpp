@@ -53,14 +53,14 @@ void supersonic_outlet(
     const Input& input, const Face& face, const int f, Fields& fields
 ) {
     const auto& n = face.normal;
-    double rho = fields.Wf(f, 0);
-    double E = fields.Wf(f, 4);
-    double u = fields.Wf(f, 1)/rho;
-    double v = fields.Wf(f, 2)/rho;
-    double w = fields.Wf(f, 3)/rho;
+    const double rho = fields.Wf(f, 0);
+    const double E = fields.Wf(f, 4);
+    const double u = fields.Wf(f, 1)/rho;
+    const double v = fields.Wf(f, 2)/rho;
+    const double w = fields.Wf(f, 3)/rho;
     double p = (input.fluid.gamma-1.0)*(E-0.5*rho*(u*u+v*v+w*w));
-    if (p < 0) p = 1.0e-14;
-    double un = u * n[0] + v * n[1] + w * n[2];
+    if (p < 0.0) p = 1.0e-14;
+    const double un = u * n[0] + v * n[1] + w * n[2];
 
     fields.F(f, 0) = rho * un;
     fields.F(f, 1) = p * n[0] + rho * u * un;

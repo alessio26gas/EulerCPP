@@ -55,7 +55,8 @@ void symmetry(
     const double v = fields.Wf(f, 2)/rho;
     const double w = fields.Wf(f, 3)/rho;
     double p = (input.fluid.gamma-1.0)*(E-0.5*rho*(u*u+v*v+w*w));
-    if (p < 0) p = 1.0e-14;
+    if (p < 0.0) p = 1.0e-14;
+
     fields.F(f, 1) = p * n[0];
     fields.F(f, 2) = p * n[1];
     fields.F(f, 3) = p * n[2];

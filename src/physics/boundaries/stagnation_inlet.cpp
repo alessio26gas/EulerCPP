@@ -68,17 +68,19 @@ void init_stagnation_inlet(Boundary& bc, const Simulation& sim) {
 
     const double R = sim.input.fluid.R;
     const double gam = sim.input.fluid.gamma;
-    const double gam2 = 2.0/(gam-1.0);
+    const double gam1 = gam-1.0;
+    const double gam2 = 2.0/gam1;
+    const double gam3 = gam/gam1;
 
-    const double M = sqrt(gam2 * (pow(Ptot / Psup, (gam-1.0)/gam) - 1.0));
-    const double T = Htot / (0.5 * gam * R * gam2) / (1.0 + 0.5*(gam-1.0)*M*M);
+    const double M = sqrt(gam2 * (pow(Ptot / Psup, 1.0/gam3) - 1.0));
+    const double T = Htot / (R * gam3) / (1.0 + 0.5*gam1*M*M);
 
     const double rho = Psup / T / R;
     const double V = M * std::sqrt(gam * Psup / rho);
     const double u = V * std::cos(alpha) * std::cos(phi);
     const double v = V * std::sin(alpha) * std::cos(phi);
     const double w = V * std::sin(phi);
-    const double E = Psup / (gam-1.0) + 0.5 * rho * V * V;
+    const double E = Psup / gam1 + 0.5 * rho * V * V;
 
     bc.state = {rho, u, v, w, E};
 }
@@ -117,29 +119,29 @@ void stagnation_inlet(
 
     const double R = input.fluid.R;
     const double gam = input.fluid.gamma;
-    const double gam2 = 2.0/(gam-1.0);
-    const double gam3 = gam/(gam-1.0);
+    const double gam1 = gam-1.0;
+    const double gam2 = 2.0/gam1;
+    const double gam3 = gam/gam1;
 
     double rho = fields.Wf(f, 0);
-    double E = fields.Wf(f, 4);
     double u = fields.Wf(f, 1)/rho;
     double v = fields.Wf(f, 2)/rho;
     double w = fields.Wf(f, 3)/rho;
-    double p = (gam-1.0)*(E-0.5*rho*(u*u+v*v+w*w));
-    if (p < 0) p = 1.0e-14;
-
     double un = u * n[0] + v * n[1] + w * n[2];
-    double a = std::sqrt(gam * p / rho);
+    double E = fields.Wf(f, 4);
+    double p = gam1*(E-0.5*rho*(u*u+v*v+w*w));
+    if (p < 0.0) p = 1.0e-14;
 
+    double a = std::sqrt(gam * p / rho);
     if (un < - a) {
         // Supersonic inlet condition
         p = Psup;
-
         rho = bc.state[0];
-        u = bc.state[1]; v = bc.state[2]; w = bc.state[3];
-        E = bc.state[4];
-
+        u = bc.state[1];
+        v = bc.state[2];
+        w = bc.state[3];
         un = u * n[0] + v * n[1] + w * n[2];
+        E = bc.state[4];
 
     } else if (un < 0.0) {
         // Subsonic inlet condition
@@ -155,43 +157,31 @@ void stagnation_inlet(
 
         const double k = 0.5*V*V;
         const double T = (Htot - k) / (R*gam3);
-        p = Ptot / pow(1.0 + 0.5*(gam-1.0)*V*V/(gam*R*T), gam3);
-        rho = p / (R * T);
-        E = p/(gam-1.0) + rho*k;
 
+        p = Ptot / pow(1.0 + k/(gam3*R*T), gam3);
+        rho = p / (R * T);
         u = V * cos(alpha) * cos(phi);
         v = V * sin(alpha) * cos(phi);
         w = V * sin(phi);
-
         un = u * n[0] + v * n[1] + w * n[2];
+        E = p/gam1 + rho*k;
 
     } else {
         // Reverse flow
         if (un < a) {
             // Pressure outlet condition
-            const double pb = Ptot;
-
             const double ut1 = u * t1[0] + v * t1[1] + w * t1[2];
             const double ut2 = u * t2[0] + v * t2[1] + w * t2[2];
-            const double gamma  = a * a * rho / p;
 
-            const double expo  = (gamma - 1.0) / (2.0 * gamma);
-            const double ab   = a * std::pow(pb / p, expo);
-            const double unb  = un + 2.0 / (gamma - 1.0) * (a - ab);
-            const double rhob = gamma * pb / (ab * ab);
+            const double ab = a * std::pow(Ptot / p, 0.5/gam3);
 
-            const double ubx = n[0] * unb + t1[0] * ut1 + t2[0] * ut2;
-            const double uby = n[1] * unb + t1[1] * ut1 + t2[1] * ut2;
-            const double ubz = n[2] * unb + t1[2] * ut1 + t2[2] * ut2;
-
-            const double V2  = ubx * ubx + uby * uby + ubz * ubz;
-            const double Eb  = pb / (gamma - 1.0) + 0.5 * rhob * V2;
-
-            rho = rhob;
-            p   = pb;
-            u   = ubx; v = uby; w = ubz;
-            E   = Eb;
-            un  = unb;
+            p   = Ptot;
+            rho = gam * p / (ab * ab);
+            un  = un + gam2 * (a - ab);
+            u   = n[0] * un + t1[0] * ut1 + t2[0] * ut2;
+            v   = n[1] * un + t1[1] * ut1 + t2[1] * ut2;
+            w   = n[2] * un + t1[2] * ut1 + t2[2] * ut2;
+            E   = p/gam1 + 0.5*rho*(u*u+v*v+w*w);
 
         } else {
             // Supersonic outlet condition

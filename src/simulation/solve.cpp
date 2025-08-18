@@ -129,7 +129,7 @@ void solve(Simulation& sim) {
     }
 
     if (iter == input.numerical.maxiter) {
-        Logger::info() << "Maximum number of iteration ("
+        Logger::info() << "Maximum number of iterations ("
                        << iter << ") reached.";
     }
 

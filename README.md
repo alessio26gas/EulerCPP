@@ -21,16 +21,7 @@ The 1D Sod shock tube is a standard Riemann problem featuring a discontinuity in
 
 The figures below show results at time 0.2 seconds on a **1000 elements** mesh using the **HLLC Riemann solver**, **second-order MUSCL reconstruction** with **Venkatakrishnan slope limiter** and a **5-stage explicit time integration scheme**. Input file and mesh files used for this problem are available in the [examples](examples/sodtube) folder.
 
-<div style="display: flex; flex-wrap: wrap; gap: 10px;">
-  <div style="flex: 1 1 49%; min-width: 200px; text-align: center;">
-    <img src="examples/sodtube/sodtube_density.png" style="width: 100%; height: auto; border-radius: 8px;">
-    <p><em>Fig. 1: Density for 1D Sod shock tube</em></p>
-  </div>
-  <div style="flex: 1 1 49%; min-width: 200px; text-align: center;">
-    <img src="examples/sodtube/sodtube_pressure.png" style="width: 100%; height: auto; border-radius: 8px;">
-    <p><em>Fig. 2: Pressure for 1D Sod shock tube</em></p>
-  </div>
-</div>
+![1D Sod shock tube](examples/sodtube/sodtube.png)
 
 ### 2D Supersonic cylinder
 
@@ -38,16 +29,7 @@ The 2D supersonic cylinder case consists of uniform freestream flow at **Mach 3*
 
 The animations below illustrate the development of the bow shock and the pressure field. Results were obtained using the **HLLC Riemann solver** and **second-order MUSCL reconstruction** with **Venkatakrishnan slope limiter**. Input file and mesh file used for this simulation are available in the [examples](examples/cylinder) folder.
 
-<div style="display: flex; flex-wrap: wrap; gap: 10px;">
-  <div style="flex: 1 1 49%; min-width: 200px; text-align: center;">
-    <img src="examples/cylinder/cylinder_mach.gif" style="width: 100%; height: auto; border-radius: 8px;">
-    <p><em>Fig. 3: Mach for supersonic cylinder</em></p>
-  </div>
-  <div style="flex: 1 1 49%; min-width: 200px; text-align: center;">
-    <img src="examples/cylinder/cylinder_pressure.gif" style="width: 100%; height: auto; border-radius: 8px;">
-    <p><em>Fig. 4: Pressure for supersonic cylinder</em></p>
-  </div>
-</div>
+![2D Supersonic cylinder](examples/cylinder/cylinder.gif)
 
 ### Axisymmetric rocket nozzle
 
@@ -55,12 +37,7 @@ This test case simulates compressible flow through a **convergent–divergent no
 
 The animation below shows the temperature field during the simulation, highlighting the supersonic expansion and shock patterns in the exhaust jet. Results were obtained using the **HLLC Riemann solver** and **second-order MUSCL reconstruction** with the **Venkatakrishnan slope limiter**. The input file and mesh used for this simulation are available in the [examples](examples/nozzle) folder.
 
-<div style="display: flex; justify-content: center; margin: 10px 0;">
-  <div style="flex: 1 1 100%; max-width: 800px; text-align: center;">
-    <img src="examples/nozzle/nozzle_temperature.gif" style="width: 100%; height: auto; border-radius: 8px;">
-    <p><em>Fig. 5: Temperature for axisymmetric rocket nozzle</em></p>
-  </div>
-</div>
+![Axisymmetric rocket nozzle](examples/nozzle/nozzle.gif)
 
 ### 3D Intermediate eXperimental Vehicle
 
@@ -70,16 +47,7 @@ The case highlights the solver’s capability to handle **large-scale 3D unstruc
 
 Results were obtained using the **HLLC Riemann solver** and **second-order MUSCL reconstruction** with the **Venkatakrishnan slope limiter**.
 
-<div style="display: flex; flex-wrap: wrap; gap: 10px;">
-  <div style="flex: 1 1 49%; min-width: 200px; text-align: center;">
-    <img src="examples/ixv/ixv_mach.gif" style="width: 100%; height: auto; border-radius: 8px;">
-    <p><em>Fig. 6: Mach for IXV</em></p>
-  </div>
-  <div style="flex: 1 1 49%; min-width: 200px; text-align: center;">
-    <img src="examples/ixv/ixv_temperature.gif" style="width: 100%; height: auto; border-radius: 8px;">
-    <p><em>Fig. 7: Temperature for IXV</em></p>
-  </div>
-</div>
+![IXV](examples/ixv/ixv.gif)
 
 ## Installation
 
