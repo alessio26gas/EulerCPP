@@ -89,7 +89,10 @@ output_name=sodtube
 # Default block defines the background state.
 # Each block_b overrides it in a defined region:
 #   p_b, rho_b (or T_b), u_b, v_b, w_b
+#   either using XYZ boxes:
 #   xmin_b, xmax_b, ymin_b, ymax_b, zmin_b, zmax_b
+#   or spheres:
+#   center_b=0.0,0.0,0.0 ; radius_b=1.0
 restart=0
 restart_file=output/sodtube.restart
 initial_variables=1
@@ -132,6 +135,8 @@ xmin_1=0.5
 #       Pressure outlet: [p]
 #       Others: []
 #   bc_X_xmin, xmax, ymin, ymax, zmin, zmax: bounding box
+#   bc_X_center, bc_X_radius: bounding sphere
+# Boundary conditions can also be assigned directly from mesh file using tags.
 n_boundaries=1
 bc_1=6
 

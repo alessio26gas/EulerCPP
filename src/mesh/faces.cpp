@@ -318,7 +318,15 @@ void compute_faces(Mesh& mesh) {
 
     Logger::debug() << "Computing face connectivity...";
     compute_face_connectivity(mesh);
+}
 
+/**
+ * @brief Assign boundary conditions.
+ *
+ * @param mesh Reference to the Mesh structure.
+ * @param input Reference to the simulation Input structure.
+ */
+void assign_boundaries(Mesh& mesh, Input& input) {
     Logger::debug() << "Counting boundary faces...";
     mesh.n_boundaries = 0;
     for (const auto& face : mesh.faces) {
@@ -327,6 +335,41 @@ void compute_faces(Mesh& mesh) {
         }
     }
     Logger::info() << "Found " << mesh.n_boundaries << " boundary faces.";
+
+    Logger::debug() << "Assigning boundary conditions...";
+    mesh.init_boundaries(input);
+
+    std::unordered_map<std::vector<int>, int, FaceKeyHash> face_map;
+
+    for (int f = 0; f < mesh.n_faces; ++f) {
+        std::vector<int> key = mesh.faces[f].nodes;
+        std::sort(key.begin(), key.end());
+        face_map[key] = f;
+    }
+
+    for (int i = 0; i < mesh.n_elements; ++i) {
+        const auto& elem = mesh.elements[i];
+        if (!elem.boundary) continue;
+
+        std::vector<int> key = elem.nodes;
+        std::sort(key.begin(), key.end());
+
+        auto it = face_map.find(key);
+        if (it != face_map.end()) {
+            int f = it->second;
+            mesh.faces[f].flag = elem.tags[0];
+        }
+    }
+
+    // Erase boundary elements
+    mesh.elements.erase(
+        std::remove_if(mesh.elements.begin(), mesh.elements.end(),
+            [](const Element& s) { return s.boundary; }),
+        mesh.elements.end()
+    );
+
+    // Update number of elements
+    mesh.n_elements = mesh.elements.size();
 }
 
 } // namespace eulercpp

@@ -74,7 +74,9 @@ enum class ElementType {
  */
 struct Element {
     int id = 0; /**< Unique identifier of the element. */
+    int dimension = 0; /** Element dimension. */
     ElementType type = ElementType::POINT; /**< Type of the element. */
+    std::vector<int> tags; /**< Element tags. */
 
     int n_nodes = 0; /**< Number of nodes defining the element. */
     std::vector<int> nodes; /**< Indices of nodes forming the element. */
@@ -91,6 +93,8 @@ struct Element {
 
     std::vector<std::array<double, 3>> w; /**< Reconstruction weights. */
     std::array<std::array<double, 3>, 3> S = {0.0}; /**< Inverse S matrix. */
+
+    bool boundary = false;    /**< True if the element is a boundary face. */
 };
 
 /**
@@ -123,7 +127,7 @@ void read_elements(std::ifstream& file, Mesh& mesh);
  * in CFD simulations.
  *
  * @param mesh Reference to the Mesh containing elements and nodes.
- * @param input Reference to the simulation Input structure for parameters.
+ * @param input Reference to the simulation Input structure.
  */
 void compute_elements(Mesh& mesh, Input& input);
 

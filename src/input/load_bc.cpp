@@ -31,7 +31,8 @@
           - "bc_b"      : boundary type (physics::BCType code).
           - "bc_b_id"   : boundary identifier.
           - "bc_b_xmin", "bc_b_ymin", "bc_b_zmin",
-            "bc_b_xmax", "bc_b_ymax", "bc_b_zmax" : spatial extents.
+            "bc_b_xmax", "bc_b_ymax", "bc_b_zmax",
+            "bc_b_radius", "bc_b_center" : spatial extents.
           - "bc_b_var_j": value for variable j, 1 ≤ j ≤ 5.
 
     @see load_bc.hpp, input.hpp
@@ -45,6 +46,7 @@
 
 #include <eulercpp/input/input.hpp>
 #include <eulercpp/input/load_bc.hpp>
+#include <eulercpp/input/input_helpers.hpp>
 #include <eulercpp/output/logger.hpp>
 
 namespace eulercpp {
@@ -99,6 +101,17 @@ void load_bc(const std::map<std::string, std::string>& config, Input& input) {
             boundary.zmin = std::stod(it->second);
         if (auto it = config.find(key_for("bc") + "_zmax"); it != config.end())
             boundary.zmax = std::stod(it->second);
+        if (auto it = config.find(key_for("bc") + "_radius"); it != config.end())
+            boundary.radius = std::stod(it->second);
+        if (auto it = config.find(key_for("bc") + "_center"); it != config.end()) {
+            auto center = parse_vector(it->second);
+            if (center.size() > 3) {
+                throw std::invalid_argument("Invalid boundary center coordinates.");
+            }
+            for (int dim = 0; dim < center.size(); ++dim) {
+                boundary.center[dim] = center[dim];
+            }
+        }
 
         /// Parse variable values for each variable
         for (int j = 0; j < 5; ++j) {

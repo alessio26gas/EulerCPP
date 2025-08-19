@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2025-08-19
+
+### Added
+
+- Mesh loading routine can assign boundary conditions using tags.
+- Spherical regions for initial conditions definition.
+- Spherical regions for boundary conditions definition.
+- Elements dimension safety check.
+- 2D Explosion example.
+
+### Changed
+
+- Mesh loading routine now reads element tags instead of skipping them.
+
 ## [0.3.1] - 2025-08-19
 
 ### Added

@@ -78,4 +78,12 @@ struct Face {
  */
 void compute_faces(Mesh& mesh);
 
+/**
+ * @brief Assign boundary conditions.
+ *
+ * @param mesh Reference to the Mesh structure.
+ * @param input Reference to the simulation Input structure.
+ */
+void assign_boundaries(Mesh& mesh, Input& input);
+
 } // namespace eulercpp

@@ -45,6 +45,7 @@
 #include <eulercpp/simulation/simulation.hpp>
 #include <eulercpp/output/logger.hpp>
 #include <eulercpp/math/time_utils.hpp>
+#include <eulercpp/math/vectors.hpp>
 
 namespace eulercpp {
 
@@ -88,7 +89,8 @@ void read_mesh(Simulation& sim) {
     /// Compute face properties
     compute_faces(mesh);
 
-    /// TODO: Flag boundary faces elements
+    /// Assign boundary conditions
+    assign_boundaries(mesh, input);
 
     /// Compute face normals
     compute_normals(mesh);
@@ -111,7 +113,7 @@ void read_mesh(Simulation& sim) {
  * @param input Input structure containing boundary definitions.
  */
 void Mesh::init_boundaries(const Input& input) {
-    constexpr double TOLERANCE = 1e-12;
+    constexpr double eps = 1e-12;
 
     #pragma omp parallel for
     for (int i = 0; i < n_faces; ++i) {
@@ -120,9 +122,10 @@ void Mesh::init_boundaries(const Input& input) {
 
         for (int b = 0; b < input.bc.n_boundaries; ++b) {
             const auto& bc = input.bc.boundaries[b];
-            if (x <= bc.xmax + TOLERANCE && x >= bc.xmin - TOLERANCE &&
-                y <= bc.ymax + TOLERANCE && y >= bc.ymin - TOLERANCE &&
-                z <= bc.zmax + TOLERANCE && z >= bc.zmin - TOLERANCE) {
+            if (x < bc.xmax + eps && x > bc.xmin - eps &&
+                y < bc.ymax + eps && y > bc.ymin - eps &&
+                z < bc.zmax + eps && z > bc.zmin - eps &&
+                math::distance(c, bc.center) < bc.radius + eps) {
                 faces[i].flag = b;
             }
         }

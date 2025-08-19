@@ -91,7 +91,6 @@ void preprocess(Simulation& sim) {
     Logger::info() << "Initial conditions set.";
 
     Logger::debug() << "Initializing boundary conditions...";
-    mesh.init_boundaries(input);
     physics::init_boundaries(sim);
     Logger::info() << "Boundary conditions set.";
 

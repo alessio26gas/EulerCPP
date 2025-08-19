@@ -23,6 +23,14 @@ The figures below show results at time 0.2 seconds on a **1000 elements** mesh u
 
 ![1D Sod shock tube](examples/sodtube/sodtube.png)
 
+### 2D Explosion
+
+This classical benchmark consists of a strong explosion initialized at the center of a square domain. The large pressure ratio between the central region and the surroundings drives the formation of shocks and rarefactions waves that interact in a highly nonlinear way.
+
+The animations below illustrate the Mach number and pressure evolution over time. Results were obtained using the **HLLC Riemann solver** and **second-order MUSCL reconstruction** with **Venkatakrishnan slope limiter** and a **5-stage explicit time integration scheme**. Input file and mesh files used for this simulation are available in the [examples](examples/explosion) folder.
+
+![2D Explosion](examples/explosion/explosion.gif)
+
 ### 2D Supersonic cylinder
 
 The 2D supersonic cylinder case consists of uniform freestream flow at **Mach 3** impinging on a circular cylinder. A detached bow shock forms upstream of the cylinder, while a complex subsonic recirculation region develops in the wake. This benchmark is widely used to validate **shock-capturing capability in two dimensions**, as well as the treatment of **slip-wall boundaries** and far-field boundary conditions.
@@ -179,7 +187,10 @@ output_name=output
 # Default block defines the background state.
 # Each block_b overrides it in a defined region:
 #   p_b, rho_b (or T_b), u_b, v_b, w_b
+#   either using XYZ boxes:
 #   xmin_b, xmax_b, ymin_b, ymax_b, zmin_b, zmax_b
+#   or spheres:
+#   center_b=0.0,0.0,0.0 ; radius_b=1.0
 restart=0
 restart_file=output/output.restart
 initial_variables=1
@@ -222,6 +233,8 @@ xmin_1=0.5
 #       Pressure outlet: [p]
 #       Others: []
 #   bc_X_xmin, xmax, ymin, ymax, zmin, zmax: bounding box
+#   bc_X_center, bc_X_radius: bounding sphere
+# Boundary conditions can also be assigned directly from mesh file using tags.
 n_boundaries=1
 bc_1=6
 

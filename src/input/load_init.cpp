@@ -174,6 +174,17 @@ void load_init(const std::map<std::string, std::string>& config, Input& input) {
             blk.zmin = std::stod(it->second);
         if (auto it = config.find(key_for_block("zmax")); it != config.end())
             blk.zmax = std::stod(it->second);
+        if (auto it = config.find(key_for_block("radius")); it != config.end())
+            blk.radius = std::stod(it->second);
+        if (auto it = config.find(key_for_block("center")); it != config.end()) {
+            auto center = parse_vector(it->second);
+            if (center.size() > 3) {
+                throw std::invalid_argument("Invalid sphere center coordinates.");
+            }
+            for (int dim = 0; dim < center.size(); ++dim) {
+                blk.center[dim] = center[dim];
+            }
+        }
 
         if (
             input.init.initial_variables == InitialVariables::TEMPERATURE_BASED

@@ -46,6 +46,7 @@
 #include <eulercpp/math/gradients.hpp>
 #include <eulercpp/math/reconstruction.hpp>
 #include <eulercpp/math/solution_update.hpp>
+#include <eulercpp/math/vectors.hpp>
 #include <eulercpp/physics/axisymmetric.hpp>
 #include <eulercpp/physics/riemann.hpp>
 #include <eulercpp/output/logger.hpp>
@@ -156,7 +157,8 @@ void set_initial_conditions(Simulation& sim) {
                 const auto& centroid = mesh.elements[i].centroid;
                 if (centroid[0] >= box.xmin && centroid[0] <= box.xmax &&
                     centroid[1] >= box.ymin && centroid[1] <= box.ymax &&
-                    centroid[2] >= box.zmin && centroid[2] <= box.zmax) {
+                    centroid[2] >= box.zmin && centroid[2] <= box.zmax &&
+                    math::distance(centroid, box.center) < box.radius) {
                     for (int v = 0; v < 5; ++v) {
                         fields.W(i, v) = box.W0[v];
                     }

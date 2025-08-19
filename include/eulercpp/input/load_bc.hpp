@@ -139,6 +139,9 @@ struct Boundary {
     double zmin = -std::numeric_limits<double>::max(); /**< Min Z */
     double zmax =  std::numeric_limits<double>::max(); /**< Max Z */
 
+    std::array<double, 3> center = {0.0}; /**< Center */
+    double radius = std::numeric_limits<double>::max(); /**< Radius */
+
     std::array<double, 5> value; /**< Input values. */
     std::array<double, 5> state; /**< Computed state. */
 };

@@ -69,6 +69,9 @@ struct Block {
     double zmin = -std::numeric_limits<double>::max(); /**< Minimum z bound */
     double zmax =  std::numeric_limits<double>::max(); /**< Maximum z bound */
 
+    std::array<double, 3> center = {0.0}; /**< Center */
+    double radius = std::numeric_limits<double>::max(); /**< Radius */
+
     std::array<double, 5> W0; /**< Initial state vector for the block */
 };
 

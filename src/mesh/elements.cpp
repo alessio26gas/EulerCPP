@@ -37,6 +37,7 @@
 #include <omp.h>
 #include <sstream>
 #include <stdexcept>
+#include <unordered_set>
 #include <vector>
 
 #include <eulercpp/input/input.hpp>
@@ -82,13 +83,17 @@ inline const char* parse_int(const char* p, int& out) {
 void read_elements(std::ifstream& file, Mesh& mesh) {
     Logger::debug() << "Reading elements...";
 
+    const std::unordered_set<int> valid2D{2, 3, 8};
+    const std::unordered_set<int> valid3D{4, 5, 6, 7, 9};
+
     std::string line;
     int counts[10] = {0};
 
     while (std::getline(file, line)) {
         if (line.rfind("$Elements", 0) == 0) {
-            if (!std::getline(file, line))
+            if (!std::getline(file, line)) {
                 throw std::runtime_error("Could not read number of elements.");
+            }
 
             mesh.n_elements = std::stoi(line);
             if (mesh.n_elements <= 0) {
@@ -97,8 +102,9 @@ void read_elements(std::ifstream& file, Mesh& mesh) {
             mesh.elements.resize(mesh.n_elements);
 
             for (int i = 0; i < mesh.n_elements; ++i) {
-                if (!std::getline(file, line))
+                if (!std::getline(file, line)) {
                     throw std::runtime_error("Unexpected end of file.");
+                }
 
                 const char* p = line.c_str();
                 int id, type, n_tags;
@@ -106,16 +112,19 @@ void read_elements(std::ifstream& file, Mesh& mesh) {
                 p = parse_int(p, type);
                 p = parse_int(p, n_tags);
 
-                /// TODO: Read tags
-                for (int t = 0; t < n_tags; ++t) {
-                    int dummy;
-                    p = parse_int(p, dummy);
+                std::vector<int> tags;
+                if (n_tags > 0) {
+                    tags.resize(n_tags);
+                    for (int t = 0; t < n_tags; ++t) {
+                        p = parse_int(p, tags[t]);
+                    }
                 }
 
-                int n_nodes = 0, n_faces = 0;
+                int n_nodes = 0, n_faces = 0, dim = 0;
                 std::vector<int> nodes;
 
                 if (type == static_cast<int>(ElementType::POLYHEDRON)) {
+                    dim = 3;
                     p = parse_int(p, n_faces);
                     for (int f = 0; f < n_faces; ++f) {
                         int face_nodes;
@@ -131,22 +140,23 @@ void read_elements(std::ifstream& file, Mesh& mesh) {
                 } else {
                     switch (static_cast<ElementType>(type)) {
                         case ElementType::POINT:
-                            n_nodes = 1; n_faces = 0; break;
+                            n_nodes = 1; n_faces = 0; dim = 0; break;
                         case ElementType::LINEAR:
-                            n_nodes = 2; n_faces = 2; break;
+                            n_nodes = 2; n_faces = 2; dim = 1; break;
                         case ElementType::TRIA:
-                            n_nodes = 3; n_faces = 3; break;
+                            n_nodes = 3; n_faces = 3; dim = 2; break;
                         case ElementType::QUAD:
-                            n_nodes = 4; n_faces = 4; break;
+                            n_nodes = 4; n_faces = 4; dim = 2; break;
                         case ElementType::TETRA:
-                            n_nodes = 4; n_faces = 4; break;
+                            n_nodes = 4; n_faces = 4; dim = 3; break;
                         case ElementType::HEXA:
-                            n_nodes = 8; n_faces = 6; break;
+                            n_nodes = 8; n_faces = 6; dim = 3; break;
                         case ElementType::PRISM:
-                            n_nodes = 6; n_faces = 5; break;
+                            n_nodes = 6; n_faces = 5; dim = 3; break;
                         case ElementType::PYRAMID:
-                            n_nodes = 5; n_faces = 5; break;
+                            n_nodes = 5; n_faces = 5; dim = 3; break;
                         case ElementType::POLYGON:
+                            dim = 2;
                             p = parse_int(p, n_faces);
                             n_nodes = n_faces;
                             break;
@@ -167,7 +177,9 @@ void read_elements(std::ifstream& file, Mesh& mesh) {
 
                 Element& elem = mesh.elements[i];
                 elem.id = id;
+                elem.dimension = dim;
                 elem.type = static_cast<ElementType>(type);
+                elem.tags = std::move(tags);
                 elem.n_nodes = n_nodes;
                 elem.n_faces = n_faces;
                 elem.nodes = std::move(nodes);
@@ -181,8 +193,9 @@ void read_elements(std::ifstream& file, Mesh& mesh) {
                 "HEXA", "PRISM", "PYRAMID", "POLYGON", "POLYHEDRON"
             };
             for (int i = 0; i < 10; ++i) {
-                if (counts[i] > 0)
+                if (counts[i] > 0) {
                     Logger::info() << " - " << names[i] << ": " << counts[i];
+                }
             }
             return;
         }
@@ -202,16 +215,33 @@ void read_elements(std::ifstream& file, Mesh& mesh) {
  * in CFD simulations.
  *
  * @param mesh Reference to the Mesh containing elements and nodes.
- * @param input Reference to the simulation Input structure for parameters.
+ * @param input Reference to the simulation Input structure.
  */
 void compute_elements(Mesh& mesh, Input& input) {
     Logger::debug() << "Computing element properties...";
 
     std::vector<double> volumes(mesh.n_elements);
 
+    const int dim_ = input.physics.dimension;
+    const int dimension = dim_ == 3 ? 3 : dim_ == 0 ? 1 : 2;
+
     #pragma omp parallel for
     for (int i = 0; i < mesh.n_elements; ++i) {
         Element& elem = mesh.elements[i];
+        if (elem.dimension > dimension) {
+            throw std::runtime_error("Invalid element dimension.");
+        }
+        if (elem.dimension < dimension-1) {
+            throw std::runtime_error("Invalid element dimension.");
+        }
+        if (elem.dimension == dimension-1) {
+            if (elem.tags.size() == 0) {
+                throw std::runtime_error("Invalid element dimension.");
+            }
+            elem.boundary = true;
+            elem.n_faces = 0;
+            continue;
+        }
 
         std::vector<std::array<double, 3>> n(elem.n_nodes);
         for (int j = 0; j < elem.n_nodes; ++j) {
@@ -288,6 +318,7 @@ void compute_elements(Mesh& mesh, Input& input) {
     double min_volume = volumes[0];
     double max_volume = volumes[0];
     for (size_t i = 1; i < volumes.size(); ++i) {
+        if (mesh.elements[i].boundary) continue;
         if (volumes[i] < min_volume) min_volume = volumes[i];
         if (volumes[i] > max_volume) max_volume = volumes[i];
     }
