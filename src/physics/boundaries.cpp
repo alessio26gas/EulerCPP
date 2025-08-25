@@ -111,7 +111,10 @@ void apply_boundary_conditions(Simulation& sim) {
  * @throws std::runtime_error if an unknown boundary condition is encountered.
  */
 void init_boundaries(Simulation& sim) {
-    auto& boundaries = sim.input.bc.boundaries;
+    auto& mesh = sim.mesh;
+    auto& input = sim.input;
+
+    auto& boundaries = input.bc.boundaries;
     for (auto& bc : boundaries) {
         switch (bc.type) {
         case BCType::SUPERSONIC_INLET:
@@ -135,6 +138,16 @@ void init_boundaries(Simulation& sim) {
         default:
             throw std::runtime_error("Unknown boundary condition type.");
         }
+    }
+
+    #pragma omp parallel for
+    for (int f = 0; f < mesh.n_faces; ++f) {
+        auto& face = mesh.faces[f];
+        if (face.opposite != -1) continue;
+        if (0 <= face.flag && face.flag < input.bc.n_boundaries) continue;
+
+        face.flag = 0;
+        Logger::warning() << "Invalid boundary id found, defaulting to 0.";
     }
 }
 

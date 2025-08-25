@@ -44,9 +44,9 @@ gamma=1.4
 #    0 = Rusanov, 1 = HLL, 2 = HLLC
 time_stages=2
 a=0.5,1.0
-CFL=0.8
+CFL=0.7
 maxtime=1.0
-maxiter=300000
+maxiter=400000
 reconstruction=1
 limiter=3
 riemann=2
@@ -57,15 +57,32 @@ riemann=2
 # prints_delay: iterations between printing residuals
 # prints_info_delay: iterations between printing header
 # restart_delay: iterations between restart file saves
+# restart_format: 0 = binary, 1 = ASCII
 # output_folder: directory for output files
 # output_name: prefix for output/restart files
 output_format=0
-output_delay=1000
+output_delay=10000
 prints_delay=1
 prints_info_delay=50
 restart_delay=500
+restart_format=0
 output_folder=output
 output_name=nozzle
+
+# Probes
+# n_probes: number of probes
+# probe_X=x,y,z: probe X location
+n_probes=0
+
+# Reports
+# n_reports: number of reports
+# report_X=Y: assign Y boundary to X report
+# report_X_cg=x,y,z: report center of gravity
+n_reports=2
+report_1=2
+report_1_cg=0.0,0.0,0.0
+report_2=3
+report_2_cg=0.0,0.0,0.0
 
 # Initial conditions
 # - restart: 0 = start from scratch, 1 = start from restart file
@@ -82,7 +99,7 @@ output_name=nozzle
 #   xmin_b, xmax_b, ymin_b, ymax_b, zmin_b, zmax_b
 #   or spheres:
 #   center_b=0.0,0.0,0.0 ; radius_b=1.0
-restart=0
+restart=1
 restart_file=output/nozzle.restart
 initial_variables=0
 additional_blocks=0
@@ -118,23 +135,28 @@ w_0=0
 #   bc_X_xmin, xmax, ymin, ymax, zmin, zmax: bounding box
 #   bc_X_center, bc_X_radius: bounding sphere
 # Boundary conditions can also be assigned directly from mesh file using tags.
-n_boundaries=4
+n_boundaries=5
 bc_1=6
 
+bc_2=5
+bc_2_xmax=0.0690968
+
 # Stagnation inlet
-bc_2=2
-bc_2_var_1=3.145e6
-bc_2_var_2=2.0e6
-bc_2_var_3=2.0e5
-bc_2_var_4=0.0
-bc_2_var_5=0.0
-bc_2_xmax=-0.2342135
+bc_3=2
+bc_3_var_1=3.145e6
+bc_3_var_2=2.0e6
+bc_3_var_3=2.0e5
+bc_3_var_4=0.0
+bc_3_var_5=0.0
+bc_3_xmax=-0.2342135
 
 # Pressure outlet
-bc_3=4
-bc_3_var_1=101325.0
-bc_3_xmin=10.0
+bc_4=4
+bc_4_var_1=101325.0
+bc_4_xmin=10.0
 
 # Axis condition
-bc_4=9
-bc_4_ymax=0.0
+bc_5=9
+bc_5_ymax=0.0
+
+

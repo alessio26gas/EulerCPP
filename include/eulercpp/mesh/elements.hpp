@@ -74,7 +74,7 @@ enum class ElementType {
  */
 struct Element {
     int id = 0; /**< Unique identifier of the element. */
-    int dimension = 0; /** Element dimension. */
+    int dimension = 0; /**< Element spatial dimension. */
     ElementType type = ElementType::POINT; /**< Type of the element. */
     std::vector<int> tags; /**< Element tags. */
 

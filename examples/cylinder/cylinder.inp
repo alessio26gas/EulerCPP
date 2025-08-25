@@ -42,8 +42,8 @@ gamma=1.4
 #    3 = Venkatakrishnan, 4 = modified Venkatakrishnan
 # riemann:
 #    0 = Rusanov, 1 = HLL, 2 = HLLC
-time_stages=1
-a=1.0
+time_stages=2
+a=0.5,1.0
 CFL=0.7
 maxtime=1.0
 maxiter=30000
@@ -57,6 +57,7 @@ riemann=2
 # prints_delay: iterations between printing residuals
 # prints_info_delay: iterations between printing header
 # restart_delay: iterations between restart file saves
+# restart_format: 0 = binary, 1 = ASCII
 # output_folder: directory for output files
 # output_name: prefix for output/restart files
 output_format=0
@@ -64,8 +65,22 @@ output_delay=1000
 prints_delay=10
 prints_info_delay=200
 restart_delay=500
+restart_format=0
 output_folder=output
 output_name=cylinder
+
+# Probes
+# n_probes: number of probes
+# probe_X=x,y,z: probe X location
+n_probes=0
+
+# Reports
+# n_reports: number of reports
+# report_X=Y: assign Y boundary to X report
+# report_X_cg=x,y,z: report center of gravity
+n_reports=1
+report_1=5
+report_1_cg=0.0,0.0,0.0
 
 # Initial conditions
 # - restart: 0 = start from scratch, 1 = start from restart file
@@ -84,7 +99,7 @@ output_name=cylinder
 #   center_b=0.0,0.0,0.0 ; radius_b=1.0
 restart=0
 restart_file=output/cylinder.restart
-initial_variables=1
+initial_variables=0
 additional_blocks=0
 
 # Default block
@@ -118,7 +133,7 @@ w_0=0
 #   bc_X_xmin, xmax, ymin, ymax, zmin, zmax: bounding box
 #   bc_X_center, bc_X_radius: bounding sphere
 # Boundary conditions can also be assigned directly from mesh file using tags.
-n_boundaries=3
+n_boundaries=5
 bc_1=6
 
 # Supersonic inlet
@@ -133,3 +148,13 @@ bc_2_var_5=0.0
 # Supersonic outlet
 bc_3=1
 bc_3_xmin=4.0
+
+# Cylinder
+bc_4=5
+bc_4_xmin=-0.55
+bc_4_xmax=0.55
+bc_4_ymax=0.55
+
+# Symmetry plane
+bc_5=6
+bc_5_ymax=0.0

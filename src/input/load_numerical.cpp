@@ -19,27 +19,27 @@
     limitations under the License.
 \* -------------------------------------------------------------------------- */
 /**
-    @file load_numerical.cpp
-    @brief Loads numerical parameters from the simulation configuration file.
-
-    This source file contains the function responsible for extracting
-    numerical method parameters from a key-value configuration map.
-
-    Expected keys:
-      - "time_stages"    : Number of stages in the time integration method.
-      - "a"              : Time integration coefficients (comma-separated).
-      - "CFL"            : CFL number for the numerical scheme.
-      - "maxtime"        : Maximum simulation time.
-      - "maxiter"        : Maximum number of iterations.
-      - "reconstruction" : Reconstruction method identifier.
-      - "limiter"        : Slope limiter identifier.
-
-    Checks are performed to ensure the number of coefficients matches 
-    the number of stages.
-
-    @see input.hpp, input_helpers.hpp, load_numerical.hpp
-    @see math::Reconstruction, math::Limiter
-    @author Alessio Improta
+ * @file load_numerical.cpp
+ * @brief Loads numerical parameters from the simulation configuration file.
+ *
+ * This source file contains the function responsible for extracting 
+ * numerical method parameters from a key-value configuration map.
+ *
+ * Expected keys:
+ *  - "time_stages"    : Number of stages in the time integration method.
+ *  - "a"              : Time integration coefficients (comma-separated).
+ *  - "CFL"            : CFL number for the numerical scheme.
+ *  - "maxtime"        : Maximum simulation time.
+ *  - "maxiter"        : Maximum number of iterations.
+ *  - "reconstruction" : Reconstruction method identifier.
+ *  - "limiter"        : Slope limiter identifier.
+ *
+ * Checks are performed to ensure the number of coefficients matches 
+ * the number of stages.
+ *
+ * @see input.hpp, input_helpers.hpp, load_numerical.hpp
+ * @see math::Reconstruction, math::Limiter
+ * @author Alessio Improta
  */
 
 #include <string>

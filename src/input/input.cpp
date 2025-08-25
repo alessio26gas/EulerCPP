@@ -19,31 +19,31 @@
     limitations under the License.
 \* -------------------------------------------------------------------------- */
 /**
-    @file input.cpp
-    @brief Loads and parses simulation input parameters.
-
-    This source file contains the functions responsible for reading,
-    validating, and processing the simulation configuration file. It
-    coordinates the extraction of settings for:
-      - Logger configuration.
-      - Physics model selection.
-      - Mesh definition.
-      - Fluid properties.
-      - Numerical parameters.
-      - Output settings.
-      - Initial and boundary conditions.
-
-    It provides two main functions:
-      - read_input_file(): Reads and processes the configuration file.
-      - load_input(): Orchestrates input file validation, timing, and
-        execution of read_input_file().
-
-    All diagnostic messages and errors are handled through the Logger
-    system.
-
-    @see input.hpp, input_helpers.hpp, load_input.hpp
-    @see Logger, math::format_duration
-    @author Alessio Improta
+ * @file input.cpp
+ * @brief Loads and parses simulation input parameters.
+ *
+ * This source file contains the functions responsible for reading,
+ * validating, and processing the simulation configuration file. It
+ * coordinates the extraction of settings for:
+ *  - Logger configuration.
+ *  - Physics model selection.
+ *  - Mesh definition.
+ *  - Fluid properties.
+ *  - Numerical parameters.
+ *  - Output settings.
+ *  - Initial and boundary conditions.
+ *
+ * It provides two main functions:
+ *  - read_input_file(): Reads and processes the configuration file.
+ *  - load_input(): Orchestrates input file validation, timing, and 
+ * execution of read_input_file().
+ *
+ * All diagnostic messages and errors are handled through the Logger 
+ * system.
+ *
+ * @see input.hpp, input_helpers.hpp, load_input.hpp
+ * @see Logger, math::format_duration
+ * @author Alessio Improta
  */
 
 #include <ctime>

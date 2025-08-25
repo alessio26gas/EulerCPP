@@ -19,19 +19,19 @@
     limitations under the License.
 \* -------------------------------------------------------------------------- */
 /**
-    @file load_mesh.cpp
-    @brief Loads mesh-related parameters from the configuration map.
-
-    This function searches for mesh-specific keys in the input configuration
-    and updates the corresponding fields in the Input structure.
-
-    Expected keys:
-      - "mesh_file" : Path or name of the mesh input file.
-      - "min_volume": Minimum allowed volume in the mesh (parsed as double).
-
-    Missing keys leave the mesh settings at their default values.
-
-    @author Alessio Improta
+ * @file load_mesh.cpp
+ * @brief Loads mesh-related parameters from the configuration map.
+ *
+ * This function searches for mesh-specific keys in the input configuration 
+ * and updates the corresponding fields in the Input structure.
+ *
+ * Expected keys:
+ *  - "mesh_file" : Path or name of the mesh input file.
+ *  - "min_volume": Minimum allowed volume in the mesh (parsed as double).
+ *
+ * Missing keys leave the mesh settings at their default values.
+ *
+ * @author Alessio Improta
  */
 
 #include <map>

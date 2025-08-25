@@ -121,8 +121,14 @@ void solve(Simulation& sim) {
             }
         }
 
+        if (iter % input.output.probe_delay == 0)
+            Writer::save_probes(sim);
+
+        if (iter % input.output.report_delay == 0)
+            Writer::save_reports(sim);
+
         if (iter % input.output.output_delay == 0)
-            Writer::save(sim);
+            Writer::save_solution(sim);
 
         if (iter % input.output.restart_delay == 0)
             Writer::save_restart(sim);
@@ -143,8 +149,11 @@ void solve(Simulation& sim) {
         Logger::warning() << "The simulation has been interrupted.";
     }
 
-    Writer::save(sim);
+    Writer::save_solution(sim);
     Writer::save_restart(sim);
+
+    Writer::probes_stream.close();
+    Writer::reports_stream.close();
 
     clock_t end = clock();
     double elapsed = (double)(end - start) / CLOCKS_PER_SEC;

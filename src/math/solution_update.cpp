@@ -69,8 +69,8 @@ void advance_solution(Simulation& sim) {
     const auto& status = sim.status;
     auto& fields = sim.fields;
 
-    int n_elements = mesh.n_elements;
-    int n_var = 5;
+    const int n_elements = mesh.n_elements;
+    const int n_var = 5;
     double dt = status.dt;
 
     const auto& a = input.numerical.a;
@@ -78,9 +78,8 @@ void advance_solution(Simulation& sim) {
     for (int i = 0; i < n_elements; ++i) {
         const auto& elem = mesh.elements[i];
         for (int v = 0; v < n_var; ++v) {
-            double dF = 0.0;
-
             /// Sum flux contributions from all faces
+            double dF = 0.0;
             for (int f = 0; f < elem.n_faces; ++f) {
                 int j = elem.faces[f];
                 dF += fields.F(j, v);
@@ -92,7 +91,7 @@ void advance_solution(Simulation& sim) {
             fields.W(i, v) = fields.Wold(i, v) + a[inner_iter] * dt / elem.volume * fields.b(i, v);
         }
     }
-    /// Update stage counter for next time step
+    /// Update stage counter
     inner_iter = (inner_iter + 1) % input.numerical.time_stages;
 }
 

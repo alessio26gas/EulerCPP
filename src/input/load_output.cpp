@@ -19,25 +19,25 @@
     limitations under the License.
 \* -------------------------------------------------------------------------- */
 /**
-    @file load_output.cpp
-    @brief Loads output-related parameters from the configuration file.
-
-    This source file contains the function responsible for extracting
-    output settings from a key-value configuration map.
-
-    Expected keys:
-      - "output_format"      : Output file format identifier.
-      - "output_delay"       : Iterations between writing output files.
-      - "prints_delay"       : Iterations between console prints.
-      - "prints_info_delay"  : Iterations between info header prints.
-      - "restart_delay"      : Iterations between restart file saves.
-      - "output_folder"      : Path to the folder where output files are saved.
-      - "output_name"        : Base name of the output files.
-
-    Updates the global Input structure with these values.
-
-    @see input.hpp, input_helpers.hpp, load_output.hpp
-    @author Alessio Improta
+ * @file load_output.cpp
+ * @brief Loads output-related parameters from the configuration file.
+ *
+ * This source file contains the function responsible for extracting 
+ * output settings from a key-value configuration map.
+ *
+ * Expected keys:
+ *  - "output_format"      : Output file format identifier.
+ *  - "output_delay"       : Iterations between writing output files.
+ *  - "prints_delay"       : Iterations between console prints.
+ *  - "prints_info_delay"  : Iterations between info header prints.
+ *  - "restart_delay"      : Iterations between restart file saves.
+ *  - "output_folder"      : Path to the folder where output files are saved.
+ *  - "output_name"        : Base name of the output files.
+ *
+ * Updates the global Input structure with these values.
+ *
+ * @see input.hpp, input_helpers.hpp, load_output.hpp
+ * @author Alessio Improta
  */
 
 #include <string>
@@ -46,6 +46,7 @@
 #include <eulercpp/input/input.hpp>
 #include <eulercpp/input/input_helpers.hpp>
 #include <eulercpp/input/load_output.hpp>
+#include <eulercpp/output/logger.hpp>
 
 namespace eulercpp {
 
@@ -81,6 +82,10 @@ void load_output(
     if (it != config.end())
         input.output.restart_delay = std::stoi(it->second);
 
+    it = config.find("restart_format");
+    if (it != config.end())
+        input.output.restart_format = std::stoi(it->second);
+
     it = config.find("output_folder");
     if (it != config.end())
         input.output.output_folder = it->second;
@@ -88,6 +93,75 @@ void load_output(
     it = config.find("output_name");
     if (it != config.end())
         input.output.output_name = it->second;
+
+    it = config.find("probe_delay");
+    if (it != config.end())
+        input.output.probe_delay = std::stoi(it->second);
+
+    it = config.find("n_probes");
+    if (it != config.end())
+        input.output.n_probes = std::stoi(it->second);
+
+    it = config.find("report_delay");
+    if (it != config.end())
+        input.output.report_delay = std::stoi(it->second);
+
+    it = config.find("n_reports");
+    if (it != config.end())
+        input.output.n_reports = std::stoi(it->second);
+
+    int n_probes = input.output.n_probes;
+    if (n_probes > 0) {
+        Logger::debug() << "Loading probes...";
+        input.output.probes.resize(n_probes);
+        for (int i = 0; i < n_probes; ++i) {
+            auto& probe = input.output.probes[i];
+            auto key = "probe_" + std::to_string(i+1);
+            it = config.find(key);
+            if (it != config.end()) {
+                auto location = parse_vector(it->second);
+                if (location.size() > 3) {
+                    throw std::invalid_argument(
+                        "Invalid probe location coordinates."
+                    );
+                }
+                for (int dim = 0; dim < location.size(); ++dim) {
+                    probe.location[dim] = location[dim];
+                }
+            }
+        }
+    } else {
+        input.output.probe_delay = std::numeric_limits<int>::max();
+    }
+
+    int n_reports = input.output.n_reports;
+    if (n_reports > 0) {
+        Logger::debug() << "Loading reports...";
+        input.output.reports.resize(n_reports);
+        for (int i = 0; i < n_reports; ++i) {
+            auto& report = input.output.reports[i];
+            auto key = "report_" + std::to_string(i+1);
+            it = config.find(key);
+            if (it != config.end()) {
+                report.boundary = std::stoi(it->second) - 1;
+            }
+            key = "report_" + std::to_string(i+1) + "_cg";
+            it = config.find(key);
+            if (it != config.end()) {
+                auto cg = parse_vector(it->second);
+                if (cg.size() > 3) {
+                    throw std::invalid_argument(
+                        "Invalid probe location coordinates."
+                    );
+                }
+                for (int dim = 0; dim < cg.size(); ++dim) {
+                    report.cg[dim] = cg[dim];
+                }
+            }
+        }
+    } else {
+        input.output.report_delay = std::numeric_limits<int>::max();
+    }
 }
 
 } // namespace eulercpp

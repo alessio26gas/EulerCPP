@@ -19,28 +19,24 @@
     limitations under the License.
 \* -------------------------------------------------------------------------- */
 /**
-    @file load_physics.cpp
-    @brief Loads physics-related parameters from the configuration map.
-
-    This source file populates the physics section of the simulation
-    input. Parameters are read from a string-based key–value map
-    produced by the configuration parser.
-
-    Currently handled:
-      - `dimension` : Spatial dimension of the simulation.
-            Accepts numeric codes or textual equivalents:
-                0 → 1D
-                1 → 2D
-                2 → Axisymmetric
-                3 → 3D
-
-    Missing keys leave the corresponding fields at their pre-set defaults.
-
-    Error handling:
-      - Non-integer values for `dimension` will cause `std::stoi`
-        to throw (`std::invalid_argument` / `std::out_of_range`).
-
-    @author Alessio Improta
+ * @file load_physics.cpp
+ * @brief Loads physics-related parameters from the configuration map.
+ *
+ * This source file populates the physics section of the simulation 
+ * input. Parameters are read from a string-based key–value map 
+ * produced by the configuration parser.
+ *
+ * Currently handled:
+ *  - `dimension` : Spatial dimension of the simulation.
+ *      Accepts numeric codes or textual equivalents:
+ *          0 → 1D
+ *          1 → 2D
+ *          2 → Axisymmetric
+ *          3 → 3D
+ *
+ * Missing keys leave the corresponding fields at their pre-set defaults.
+ *
+ * @author Alessio Improta
  */
 
 #include <map>

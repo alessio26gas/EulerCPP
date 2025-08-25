@@ -19,20 +19,20 @@
     limitations under the License.
 \* -------------------------------------------------------------------------- */
 /**
-    @file load_fluid.cpp
-    @brief Loads fluid properties from the simulation configuration file.
-
-    This source file contains the function responsible for extracting
-    the fluid-related parameters from a key-value configuration map.
-
-    Expected keys:
-      - "R"     : Gas constant for the fluid.
-      - "gamma" : Ratio of specific heats.
-
-    Missing keys leave the fluid properties at their default values.
-
-    @see input.hpp, input_helpers.hpp, load_fluid.hpp
-    @author Alessio Improta
+ * @file load_fluid.cpp
+ * @brief Loads fluid properties from the simulation configuration file.
+ *
+ * This source file contains the function responsible for extracting
+ * the fluid-related parameters from a key-value configuration map.
+ *
+ * Expected keys:
+ *  - "R"     : Gas constant for the fluid.
+ *  - "gamma" : Ratio of specific heats.
+ *
+ * Missing keys leave the fluid properties at their default values.
+ *
+ * @see input.hpp, input_helpers.hpp, load_fluid.hpp
+ * @author Alessio Improta
  */
 
 #include <map>

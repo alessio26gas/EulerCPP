@@ -28,12 +28,6 @@
  *
  * The computation uses OpenMP for parallelization over mesh elements.
  *
- * Usage example:
- * @code
- * eulercpp::Simulation sim;
- * eulercpp::math::compute_gradients(sim);
- * @endcode
- *
  * @see gradients.cpp for implementation details.
  */
 

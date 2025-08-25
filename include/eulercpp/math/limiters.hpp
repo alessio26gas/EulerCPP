@@ -67,8 +67,9 @@ enum class Limiter {
 /**
  * @brief Minmod limiter.
  *
- * The Minmod limiter might be the most diffusive (non-linear) limiter 
- * and thus suitable for testing codes or modules.
+ * The Minmod limiter tends to be highly diffusive, making it a good 
+ * choice for testing purposes or verifying new code modules.
+ *
  * This limiter provides a monotonic reconstruction by returning 1 if 
  * the ratio is less than 1, and 1/rf otherwise.
  *
@@ -82,12 +83,8 @@ inline double minmod(double rf) {
 /**
  * @brief Superbee limiter.
  *
- * The Superbee limiter, sometimes known as supera, is sharper compared 
- * with other second-order limiters. It was designed by Roe (1985), devised 
- * by the "discontinuity-sharpning" suggestion from Colella (1984). But it 
- * first appear in Sweby (1984) already. The name of A or B (or nickname bee) 
- * comes from the A-function or B-function used in the early literatures to 
- * quantify the slope.
+ * The Superbee limiter is more aggressive in preserving sharp gradients 
+ * than most other second-order limiters.
  *
  * It returns 2.0 for rf < 0.5, and computes a value using rf for rf >= 0.5.
  *
@@ -102,8 +99,10 @@ inline double superbee(double rf) {
 /**
  * @brief Van Leer limiter.
  *
- * A classic and widely used second-order symmetric TVD limiter.
- * The Van Leer limiter is robust and less diffusive than 'minmod'.
+ * The Van Leer limiter is a classic, symmetric second-order TVD limiter. 
+ * It is known for being robust while introducing less numerical diffusion 
+ * than the Minmod limiter.
+ *
  * It returns 2.0 / (rf + 1.0).
  *
  * @param rf The ratio of differences used in the reconstruction.

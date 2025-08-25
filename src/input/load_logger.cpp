@@ -19,26 +19,26 @@
     limitations under the License.
 \* -------------------------------------------------------------------------- */
 /**
-    @file load_logger.cpp
-    @brief Loads Logger-related parameters from the configuration map.
-
-    This function reads verbosity level and log file paths from a key-value
-    map and configures the Logger accordingly.
-
-    Expected keys:
-      - "verbosity" : integer code corresponding to Logger::Level.
-         - 0 : SILENT
-         - 1 : ERROR
-         - 2 : WARNING
-         - 3 : SUCCESS
-         - 4 : INFO
-         - 5 : DEBUG
-      - "log_file"  : path to the main log file.
-      - "rhs_file"  : path to the RHS log file.
-
-    Missing keys leave the logger at default settings.
-
-    @author Alessio Improta
+ * @file load_logger.cpp
+ * @brief Loads Logger-related parameters from the configuration map.
+ *
+ * This function reads verbosity level and log file paths from a key-value
+ * map and configures the Logger accordingly.
+ *
+ * Expected keys:
+ *  - "verbosity" : integer code corresponding to Logger::Level.
+ *      - 0 : SILENT
+ *      - 1 : ERROR
+ *      - 2 : WARNING
+ *      - 3 : SUCCESS
+ *      - 4 : INFO
+ *      - 5 : DEBUG
+ *  - "log_file"  : path to the main log file.
+ *  - "rhs_file"  : path to the RHS log file.
+ *
+ * Missing keys leave the logger at default settings.
+ *
+ * @author Alessio Improta
  */
 
 #include <map>

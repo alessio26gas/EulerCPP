@@ -19,19 +19,19 @@
     limitations under the License.
 \* -------------------------------------------------------------------------- */
 /**
-    @file input.hpp
-    @brief Defines the structure and functions for handling simulation input.
-
-    This file declares the main `Input` structure, which aggregates all
-    input parameters required for a simulation run. It includes physics,
-    mesh, fluid properties, numerical settings, initial conditions,
-    boundary conditions, and output configuration.
-
-    The `load_input` function provides a convenient entry point to
-    populate the `Input` structure from configuration files or command-
-    line arguments.
-
-    @author Alessio Improta
+ * @file input.hpp
+ * @brief Defines the structure and functions for handling simulation input.
+ *
+ * This file declares the main `Input` structure, which aggregates all 
+ * input parameters required for a simulation run. It includes physics, 
+ * mesh, fluid properties, numerical settings, initial conditions, 
+ * boundary conditions, and output configuration.
+ *
+ * The `load_input` function provides a convenient entry point to 
+ * populate the `Input` structure from configuration files or command-
+ * line arguments.
+ *
+ * @author Alessio Improta
  */
 
 #pragma once

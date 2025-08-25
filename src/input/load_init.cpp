@@ -19,32 +19,32 @@
     limitations under the License.
 \* -------------------------------------------------------------------------- */
 /**
-    @file load_init.cpp
-    @brief Loads and sets up the initial conditions for the simulation.
-
-    This source file provides functionality to parse initial condition 
-    parameters from the configuration map. It supports both a restart 
-    mechanism and fresh initialization from density/temperature-based 
-    states.
-
-    Main features:
-      - Restart configuration:
-          - "restart"       : Flag to enable restart mode (0 = no, 1 = yes).
-          - "restart_file"  : Path to the restart file (required if restart=1).
-      - Initial state variables:
-          - "initial_variables" : Defines whether initialization is based on 
-                                  TEMPERATURE (0) or DENSITY (1).
-          - "rho_0", "p_0", "T_0", "u_0", "v_0", "w_0"
-      - Additional blocks:
-          - "additional_blocks" : Number of user-defined initialization blocks.
-          - Each block b uses keys with suffix `_b` (1-based index):
-              - rho_b, p_b, T_b, u_b, v_b, w_b
-              - xmin_b, xmax_b, ymin_b, ymax_b, zmin_b, zmax_b
-
-    Updates both the global initial state `W0` and optional per-block states.
-
-    @see input.hpp, input_helpers.hpp, load_init.hpp
-    @author  Alessio Improta
+ * @file load_init.cpp
+ * @brief Loads and sets up the initial conditions for the simulation.
+ *
+ * This source file provides functionality to parse initial condition 
+ * parameters from the configuration map. It supports both a restart 
+ * mechanism and fresh initialization from density/temperature-based 
+ * states.
+ *
+ * Main features:
+ *  - Restart configuration:
+ *      - "restart"       : Flag to enable restart mode (0 = no, 1 = yes).
+ *      - "restart_file"  : Path to the restart file (required if restart=1).
+ *  - Initial state variables:
+ *      - "initial_variables" : Defines whether initialization is based on 
+ * temperature (0) or density (1).
+ *      - "rho_0", "p_0", "T_0", "u_0", "v_0", "w_0"
+ *  - Additional blocks:
+ *      - "additional_blocks" : Number of user-defined initialization blocks.
+ *      - Each block b uses keys with suffix `_b` (1-based index):
+ *      - rho_b, p_b, T_b, u_b, v_b, w_b
+ *      - xmin_b, xmax_b, ymin_b, ymax_b, zmin_b, zmax_b
+ *
+ * Updates both the global initial state `W0` and optional per-block states.
+ *
+ * @see input.hpp, input_helpers.hpp, load_init.hpp
+ * @author Alessio Improta
  */
 
 #include <string>

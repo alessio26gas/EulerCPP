@@ -19,24 +19,24 @@
     limitations under the License.
 \* -------------------------------------------------------------------------- */
 /**
-    @file load_bc.cpp
-    @brief Loads boundary condition definitions from configuration.
-
-    This source file reads boundary-condition settings from a key–value map
-    and initializes the corresponding fields.
-
-    Expected keys:
-      - "n_boundaries" : number of boundary regions.
-      - For each boundary b (1-based):
-          - "bc_b"      : boundary type (physics::BCType code).
-          - "bc_b_id"   : boundary identifier.
-          - "bc_b_xmin", "bc_b_ymin", "bc_b_zmin",
-            "bc_b_xmax", "bc_b_ymax", "bc_b_zmax",
-            "bc_b_radius", "bc_b_center" : spatial extents.
-          - "bc_b_var_j": value for variable j, 1 ≤ j ≤ 5.
-
-    @see load_bc.hpp, input.hpp
-    @author Alessio Improta
+ * @file load_bc.cpp
+ * @brief Loads boundary condition definitions from configuration.
+ *
+ * This source file reads boundary-condition settings from a key–value map
+ * and initializes the corresponding fields.
+ *
+ * Expected keys:
+ *  - "n_boundaries" : number of boundary regions.
+ *  - For each boundary b (1-based):
+ *      - "bc_b"      : boundary type (physics::BCType code).
+ *      - "bc_b_id"   : boundary identifier.
+ *      - "bc_b_xmin", "bc_b_ymin", "bc_b_zmin", 
+ *        "bc_b_xmax", "bc_b_ymax", "bc_b_zmax",
+ *        "bc_b_radius", "bc_b_center" : spatial extents.
+ *      - "bc_b_var_j": value for variable j, 1 ≤ j ≤ 5.
+ *
+ * @see load_bc.hpp, input.hpp
+ * @author Alessio Improta
  */
 
 #include <string>

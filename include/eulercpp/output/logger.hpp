@@ -54,12 +54,12 @@ public:
      * @brief Logging severity levels.
      */
     enum class Level {
-        RESIDUALS,  ///< Residual log.
-        ERROR,      ///< Errors or fatal issues.
-        WARNING,    ///< Warnings about potential issues.
-        SUCCESS,    ///< Successful completion or progress.
-        INFO,       ///< General information messages.
-        DEBUG,      ///< Detailed debug messages.
+        RESIDUALS,  /**< Residual log. */
+        ERROR,      /**< Errors or fatal issues. */
+        WARNING,    /**< Warnings about potential issues. */
+        SUCCESS,    /**< Successful completion messages. */
+        INFO,       /**< General information messages. */
+        DEBUG,      /**< Detailed debug messages. */
     };
 
     /**

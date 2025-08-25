@@ -19,15 +19,15 @@
     limitations under the License.
 \* -------------------------------------------------------------------------- */
 /**
-    @file load_numerical.hpp
-    @brief Input handling for numerical solver settings.
-
-    Declares the structure and function to load numerical parameters
-    from a key-value configuration map. Includes reconstruction scheme,
-    limiter, time integration settings, CFL, maximum time, and iteration limits.
-
-    @author Alessio Improta
-*/
+ * @file load_numerical.hpp
+ * @brief Input handling for numerical solver settings.
+ *
+ * Declares the structure and function to load numerical parameters 
+ * from a key-value configuration map. Includes reconstruction scheme, 
+ * limiter, time integration settings, CFL, maximum time, and iteration limits.
+ *
+ * @author Alessio Improta
+ */
 
 #pragma once
 

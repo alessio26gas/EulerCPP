@@ -77,7 +77,7 @@ void set_initial_conditions(Simulation& sim) {
     if (input.init.restart == 1) {
         Logger::info() << "Loading restart file " << input.init.restart_file;
 
-        std::ifstream file(input.init.restart_file);
+        std::ifstream file(input.init.restart_file, std::ios::binary);
         if (!file) {
             throw std::runtime_error(
                 "Unable to open restart file " + input.init.restart_file
@@ -90,6 +90,7 @@ void set_initial_conditions(Simulation& sim) {
         while (std::getline(file, line)) {
             if (line.compare(0, 23, "# EULERCPP Restart File") == 0) {
                 found_restart = true;
+                Logger::debug() << "Detected ASCII restart file.";
 
                 int iter;
                 double time;
@@ -127,6 +128,46 @@ void set_initial_conditions(Simulation& sim) {
                             throw std::runtime_error(ss.str());
                         }
                     }
+                }
+                break;
+            } else if (line.compare(0, 19, "# EULERCPP BIN File") == 0) {
+                found_restart = true;
+                Logger::debug() << "Detected binary restart file.";
+
+                int iter;
+                double time;
+                int elm_check, var_check;
+
+                file >> iter >> time >> elm_check >> var_check;
+                file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                if (!file) {
+                    throw std::runtime_error(
+                        "Error reading binary restart file header values."
+                    );
+                }
+                if (elm_check != mesh.n_elements) {
+                    throw std::runtime_error(
+                        "Restart file element count mismatch."
+                    );
+                }
+                if (var_check != 5) {
+                    throw std::runtime_error(
+                        "Restart file variable count mismatch."
+                    );
+                }
+
+                input.numerical.maxiter += iter;
+                sim.status.iteration = iter;
+                sim.status.time = time;
+
+                file.read(reinterpret_cast<char*>(fields.Wdata()),
+                        mesh.n_elements * 5 * sizeof(double));
+
+                if (!file) {
+                    throw std::runtime_error(
+                        "Error reading binary restart file data."
+                    );
                 }
                 break;
             }
@@ -180,35 +221,31 @@ void set_initial_conditions(Simulation& sim) {
  * @param sim Reference to the Simulation object to initialize.
  */
 void initialize_simulation(Simulation& sim) {
+    auto& input = sim.input;
 
-    math::init_limiter(sim.input.numerical.limiter);
-    Logger::debug() << "Limiter "
-                    << static_cast<int>(sim.input.numerical.limiter)
-                    << " selected.";
+    math::init_limiter(input.numerical.limiter);
 
-    math::init_reconstruction(sim.input.numerical.reconstruction);
-    Logger::debug() << "Reconstruction scheme "
-                    << static_cast<int>(sim.input.numerical.reconstruction)
-                    << " selected.";
+    math::init_reconstruction(input.numerical.reconstruction);
 
-    physics::init_riemann(sim.input.numerical.riemann);
-    Logger::debug() << "Riemann solver "
-                    << static_cast<int>(sim.input.numerical.riemann)
-                    << " selected.";
+    physics::init_riemann(input.numerical.riemann);
 
-    if (sim.input.physics.dimension == 2) {
+    if (input.physics.dimension == 2) {
         physics::init_axisymmetry(sim);
-        Logger::debug() << "Simulation set to axisymmetric mode.";
+        Logger::info() << "Simulation set to axisymmetric mode.";
     }
 
     Writer::configure(
-        sim.input.output.output_format,
-        sim.input.output.output_folder,
-        sim.input.output.output_name
+        input.output.output_format,
+        input.output.restart_format,
+        input.output.output_folder,
+        input.output.output_name
     );
-    Logger::debug() << "Output format "
-                    << sim.input.output.output_format
-                    << " selected.";
+
+    if (input.output.n_probes > 0)
+        Writer::init_probes(sim);
+
+    if (input.output.n_reports > 0)
+        Writer::init_reports(sim);
 }
 
 } // namespace eulercpp

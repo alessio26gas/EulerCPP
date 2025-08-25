@@ -19,22 +19,22 @@
     limitations under the License.
 \* -------------------------------------------------------------------------- */
 /**
-    @file main.cpp
-    @brief Main program entry point.
-
-    This file defines the 'main()' function, which serves as the control hub 
-    for the EulerCPP solver. It is responsible for:
-      - Displaying the application banner and version details.
-      - Parsing input files and command-line arguments.
-      - Loading and preparing the computational mesh.
-      - Initializing numerical data structures.
-      - Executing the solver loop until convergence or termination.
-      - Handling all top-level exceptions and logging errors.
-
-    This is the first code executed when the program starts, coordinating
-    the entire simulation workflow from initialization to final output.
-
-    @author Alessio Improta
+ * @file main.cpp
+ * @brief Main program entry point.
+ *
+ * This file defines the 'main()' function, which serves as the control hub 
+ * for the EulerCPP solver. It is responsible for:
+ *  - Displaying the application banner and version details.
+ *  - Parsing input files and command-line arguments.
+ *  - Loading and preparing the computational mesh.
+ *  - Initializing numerical data structures.
+ *  - Executing the solver loop until convergence or termination.
+ *  - Handling all top-level exceptions and logging errors.
+ *
+ * This is the first code executed when the program starts, coordinating 
+ * the entire simulation workflow from initialization to final output.
+ *
+ * @author Alessio Improta
  */
 
 #include <cstdlib>
@@ -69,7 +69,7 @@ int main(int argc, char* argv[]) {
     Logger::info() << "|___|\\___/|____|___|_|_\\\e[1;96m\\___|_| |_|  ";
     Logger::info() << "";
     Logger::info() << "EulerCPP - A C++ 3D Euler CFD solver";
-    Logger::info() << "Version 0.4.0 (c) 2025 Alessio Improta";
+    Logger::info() << "Version 0.5.0 (c) 2025 Alessio Improta";
     Logger::info() << "";
 
     /// @brief Main simulation object containing the entire simulation state.

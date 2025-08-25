@@ -40,9 +40,9 @@ namespace eulercpp::physics {
  * @brief Supported Riemann solvers.
  */
 enum class Riemann {
-    RUSANOV,    ///< Rusanov solver
-    HLL,        ///< HLL (Harten-Lax-van Leer) solver
-    HLLC,       ///< HLLC (Harten-Lax-van Leer-Contact) solver
+    RUSANOV,    /**< Rusanov solver */
+    HLL,        /**< HLL (Harten-Lax-van Leer) solver */
+    HLLC,       /**< HLLC (Harten-Lax-van Leer-Contact) solver */
 };
 
 /**

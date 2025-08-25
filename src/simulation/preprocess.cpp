@@ -95,7 +95,7 @@ void preprocess(Simulation& sim) {
     Logger::info() << "Boundary conditions set.";
 
     Logger::debug() << "Writing initial conditions...";
-    Writer::save(sim);
+    Writer::save_solution(sim);
 
     clock_t end = clock();
     double elapsed = (double)(end - start) / CLOCKS_PER_SEC;

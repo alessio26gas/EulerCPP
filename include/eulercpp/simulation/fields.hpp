@@ -67,7 +67,7 @@ public:
 
     /**
      * @brief Returns the spatial dimension of the simulation.
-     * @return Dimension (1, 2, or 3)
+     * @return Dimension (1, 2 or 3)
      */
     inline const int& dimension() const noexcept {
         return dim;
@@ -93,6 +93,31 @@ public:
      */
     inline const double& W(int cell, int var) const noexcept {
         return conservatives[cell * n_var + var];
+    }
+
+    /**
+     * @brief Provides direct pointer access to the underlying array 
+     * of conservative variables.
+     * 
+     * Allows for high-performance bulk operations such as reading/writing
+     * binary data without using W(i,v) in loops.
+     * 
+     * @return Pointer to the first element of the conservatives array
+     */
+    inline double* Wdata() noexcept {
+        return conservatives.data();
+    }
+
+    /**
+     * @brief Provides const direct pointer access to the underlying 
+     * array of conservative variables.
+     * 
+     * Allows for high-performance bulk read operations on the array.
+     * 
+     * @return Const pointer to the first element of the conservatives array
+     */
+    inline const double* Wdata() const noexcept {
+        return conservatives.data();
     }
 
     /**
@@ -279,20 +304,20 @@ public:
     }
 
 private:
-    int n_elements = 0; ///< Number of elements in the mesh
-    int n_faces = 0;    ///< Number of faces in the mesh
-    int n_var = 5;      ///< Number of conservative variables
-    int dim = 0;        ///< Spatial dimension
+    int n_elements = 0; /**< Number of elements in the mesh */
+    int n_faces = 0;    /**< Number of faces in the mesh */
+    int n_var = 5;      /**< Number of conservative variables */
+    int dim = 0;        /**< Spatial dimension */
 
-    std::vector<double> conservatives;      ///< Conservative variables W
-    std::vector<double> conservatives_old;  ///< Previous iteration W
-    std::vector<double> sources;            ///< Source terms S
+    std::vector<double> conservatives;      /**< Conservative variables W */
+    std::vector<double> conservatives_old;  /**< Previous iteration W */
+    std::vector<double> sources;            /**< Source terms S */
 
-    std::vector<std::array<double, 3>> grad_conservatives; ///< Gradients of W
+    std::vector<std::array<double, 3>> grad_conservatives; /**< Gradients */
 
-    std::vector<double> rhs;        ///< RHS vector b
-    std::vector<double> Wface;      ///< Face-centered conservative variables
-    std::vector<double> fluxF;      ///< Convective fluxes F
+    std::vector<double> rhs;        /**< RHS vector b */
+    std::vector<double> Wface;      /**< Face-centered variables */
+    std::vector<double> fluxF;      /**< Convective fluxes F */
 };
 
 } // namespace eulercpp

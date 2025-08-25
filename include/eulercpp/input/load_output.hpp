@@ -40,17 +40,52 @@ namespace eulercpp {
 struct Input;
 
 /**
+ * @struct Probe
+ * @brief Defines a probe point in the domain for monitoring flow variables.
+ *
+ * A probe is associated with the nearest mesh element centroid to the 
+ * user-defined location. During the simulation, primitive/conserved variables 
+ * at that element are sampled and written to the probe output file.
+ */
+struct Probe {
+    int element = 0; /**< Index of the element assigned to this probe. */
+    std::array<double, 3> location = {0.0}; /**< User-defined probe location. */
+};
+
+/**
+ * @struct Report
+ * @brief Defines a global report over a boundary patch.
+ *
+ * A report computes integral quantities (mass flow, forces, and moments) over
+ * all faces belonging to a specified boundary tag. Moments are computed with
+ * respect to the given center of gravity.
+ */
+struct Report {
+    int boundary = 0; /**< Boundary tag associated with this report. */
+    std::array<double, 3> cg = {0.0}; /**< Reference center of gravity. */
+};
+
+/**
  * @struct OutputSettings
  * @brief Holds all the output settings.
  */
 struct OutputSettings {
     int output_format = 0;       /**< Output file format. */
-    int output_delay = 0;        /**< Output file write dela. */
-    int prints_delay = 0;        /**< Terminal output print delay. */
+    int output_delay = 1;        /**< Output file write dela. */
+    int prints_delay = 1;        /**< Terminal output print delay. */
     int prints_info_delay = 0;   /**< Detailed info print delay. */
-    int restart_delay = 0;       /**< Restart file write delay. */
+    int restart_delay = 1;       /**< Restart file write delay. */
+    int restart_format = 0;      /**< Restart file format. */
     std::string output_folder = "output"; /**< Output folder path. */
     std::string output_name = "output";   /**< Base name for output files. */
+
+    int probe_delay = 1;          /**< Interval between writing probe data. */
+    int n_probes = 0;             /**< Number of probes. */
+    std::vector<Probe> probes;    /**< Collection of probes. */
+
+    int report_delay = 1;         /**< Interval between writing report data. */
+    int n_reports = 0;            /**< Number of reports. */
+    std::vector<Report> reports;  /**< Collection of reports. */
 };
 
 /**

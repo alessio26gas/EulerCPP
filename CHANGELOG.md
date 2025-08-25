@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2025-08-25
+
+### Added
+
+- Binary restart file format.
+- Restart file format input setting (`restart_format`).
+- Point probes.
+- Point probes input settings.
+- Point probes CSV output file (`*_probes.csv`).
+- Reports.
+- Reports CSV output file (`*_reports.csv`).
+- Reports input settings.
+- Face boundary flag safety check.
+
+### Changed
+
+- Default restart file format is set to binary.
+- Improved axisymmetric mode initialization routine.
+- Updated Doxygen documentation.
+
 ## [0.4.0] - 2025-08-19
 
 ### Added
@@ -25,7 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Reverse flow check in pressure outlet boundary condition.
 
-### Changes
+### Changed
 
 - Improved boundary conditions code.
 

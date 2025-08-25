@@ -19,14 +19,14 @@
     limitations under the License.
 \* -------------------------------------------------------------------------- */
 /**
-    @file input_helpers.hpp
-    @brief Helper functions for parsing configuration strings and files.
-
-    This header provides utility functions for converting comma-separated
-    strings into numeric containers (`std::vector` or `std::array`), and
-    for parsing configuration files into key-value maps.
-
-    @author Alessio Improta
+ * @file input_helpers.hpp
+ * @brief Helper functions for parsing configuration strings and files.
+ *
+ * This header provides utility functions for converting comma-separated 
+ * strings into numeric containers (`std::vector` or `std::array`), and 
+ * for parsing configuration files into key-value maps.
+ *
+ * @author Alessio Improta
  */
 
 #include <array>

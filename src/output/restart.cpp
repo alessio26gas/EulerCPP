@@ -38,7 +38,7 @@
 namespace eulercpp {
 
 /**
- * @brief Writes a restart file for the given simulation.
+ * @brief Writes a restart file in binary format.
  *
  * The restart file contains:
  * - Current iteration number.
@@ -52,8 +52,52 @@ namespace eulercpp {
  *
  * @note Overwrites existing files with the same name.
  */
-void write_restart(const Simulation& sim, const std::string& filepath) {
-    Logger::info() << "Saving restart file...";
+void write_restart_bin(const Simulation& sim, const std::string& filepath) {
+    Logger::info() << "Saving binary restart file...";
+
+    const Mesh& mesh = sim.mesh;
+    const Fields& fields = sim.fields;
+    const Input& input = sim.input;
+
+    std::ofstream ofs(filepath, std::ios::binary);
+    if (!ofs) {
+        Logger::warning() << "Failed to open file: " << filepath;
+        return;
+    }
+
+    ofs << "# EULERCPP BIN File\n";
+    ofs << sim.status.iteration << " "
+        << sim.status.time << " "
+        << sim.mesh.n_elements << " "
+        << 5 << "\n";
+
+    ofs.write(reinterpret_cast<const char*>(fields.Wdata()),
+              mesh.n_elements * 5 * sizeof(double));
+
+    if (!ofs) {
+        throw std::runtime_error("Error writing binary restart file.");
+    }
+
+    ofs.close();
+}
+
+/**
+ * @brief Writes a restart file in ASCII format.
+ *
+ * The restart file contains:
+ * - Current iteration number.
+ * - Simulation time.
+ * - Number of elements in the mesh.
+ * - Number of conserved variables.
+ * - Field values for each element.
+ *
+ * @param sim The simulation object containing the mesh, fields, and status.
+ * @param filepath Path to the restart file to write.
+ *
+ * @note Overwrites existing files with the same name.
+ */
+void write_restart_ascii(const Simulation& sim, const std::string& filepath) {
+    Logger::info() << "Saving ASCII restart file...";
 
     const Mesh& mesh = sim.mesh;
     const Fields& fields = sim.fields;

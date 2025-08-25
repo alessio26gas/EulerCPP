@@ -19,14 +19,14 @@
     limitations under the License.
 \* -------------------------------------------------------------------------- */
 /**
-    @file load_init.hpp
-    @brief Declarations for handling initial conditions.
-
-    This file defines structures and enums to represent initial
-    conditions for the simulation. It also declares the function to
-    load initial conditions from a configuration map.
-
-    @author Alessio Improta
+ * @file load_init.hpp
+ * @brief Declarations for handling initial conditions.
+ *
+ * This file defines structures and enums to represent initial 
+ * conditions for the simulation. It also declares the function to 
+ * load initial conditions from a configuration map.
+ *
+ * @author Alessio Improta
  */
 
 #pragma once

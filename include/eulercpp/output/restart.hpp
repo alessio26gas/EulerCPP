@@ -35,7 +35,7 @@
 namespace eulercpp {
 
 /**
- * @brief Writes a restart file for the given simulation.
+ * @brief Writes a restart file in binary format.
  *
  * The restart file contains:
  * - Current iteration number.
@@ -49,6 +49,23 @@ namespace eulercpp {
  *
  * @note Overwrites existing files with the same name.
  */
-void write_restart(const Simulation& sim, const std::string& filepath);
+void write_restart_bin(const Simulation& sim, const std::string& filepath);
+
+/**
+ * @brief Writes a restart file in ASCII format.
+ *
+ * The restart file contains:
+ * - Current iteration number.
+ * - Simulation time.
+ * - Number of elements in the mesh.
+ * - Number of conserved variables.
+ * - Field values for each element.
+ *
+ * @param sim The simulation object containing the mesh, fields, and status.
+ * @param filepath Path to the restart file to write.
+ *
+ * @note Overwrites existing files with the same name.
+ */
+void write_restart_ascii(const Simulation& sim, const std::string& filepath);
 
 } // namespace eulercpp

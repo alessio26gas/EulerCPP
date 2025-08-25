@@ -53,9 +53,9 @@ void axisymmetry_sources(Simulation& sim) {
         const double gam = input.fluid.gamma;
         const double rho = fields.W(i, 0);
         const double rhoV2 = (
-            fields.W(i, 1)*fields.W(i, 1)
-            +fields.W(i, 2)*fields.W(i, 2)
-            +fields.W(i, 3)*fields.W(i, 3)
+            fields.W(i, 1)*fields.W(i, 1) +
+            fields.W(i, 2)*fields.W(i, 2) +
+            fields.W(i, 3)*fields.W(i, 3)
         )/fields.W(i, 0);
         const double E = fields.W(i, 4);
         double p = (gam-1.0)*(E-0.5*rhoV2);
@@ -74,15 +74,16 @@ void axisymmetry_sources(Simulation& sim) {
  */
 void init_axisymmetry(Simulation& sim) {
     auto& mesh = sim.mesh;
+    const double PI = 3.14159265358979323846;
 
     #pragma omp parallel for
-    for (int i = 0; i < mesh.n_elements; ++i) {
-        mesh.elements[i].volume *= mesh.elements[i].centroid[1];
+    for (auto& elem : mesh.elements) {
+        elem.volume *= 2.0 * PI * elem.centroid[1];
     }
 
     #pragma omp parallel for
-    for (int f = 0; f < mesh.n_faces; ++f) {
-        mesh.faces[f].area *= mesh.faces[f].centroid[1];
+    for (auto& face : mesh.faces) {
+        face.area *= 2.0 * PI * face.centroid[1];
     }
 }
 

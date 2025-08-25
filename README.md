@@ -166,6 +166,7 @@ riemann=2
 # prints_delay: iterations between printing residuals
 # prints_info_delay: iterations between printing header
 # restart_delay: iterations between restart file saves
+# restart_format: 0 = binary, 1 = ASCII
 # output_folder: directory for output files
 # output_name: prefix for output/restart files
 output_format=0
@@ -173,8 +174,23 @@ output_delay=1000
 prints_delay=1
 prints_info_delay=20
 restart_delay=500
+restart_format=0
 output_folder=output
 output_name=output
+
+# Probes
+# n_probes: number of probes
+# probe_X=x,y,z: probe X location
+n_probes=1
+probe_1=0.0,0.0,0.0
+
+# Reports
+# n_reports: number of reports
+# report_X=Y: assign Y boundary to X report
+# report_X_cg=x,y,z: report center of gravity
+n_reports=1
+report_1=1
+report_1_cg=0.0,0.0,0.0
 
 # Initial conditions
 # - restart: 0 = start from scratch, 1 = start from restart file
