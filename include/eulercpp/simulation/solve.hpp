@@ -59,4 +59,4 @@ namespace eulercpp {
  */
 void solve(Simulation& sim);
 
-}
+} //namespace eulercpp

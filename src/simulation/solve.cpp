@@ -77,22 +77,27 @@ void solve(Simulation& sim) {
     clock_t start = clock();
 
     const Input& input = sim.input;
-    Fields& fields     = sim.fields;
-    Status& status     = sim.status;
-    int&    iter       = status.iteration;
-    double& time       = status.time;
-    bool&   stopped    = status.stopped;
+    const auto& output = input.output;
 
-    while (iter < input.numerical.maxiter &&
-           time < input.numerical.maxtime &&
-           !stopped) {
+    Fields& fields = sim.fields;
+    Status& status = sim.status;
+
+    const auto& stages = input.numerical.time_stages;
+    const auto& maxiter = input.numerical.maxiter;
+    const auto& maxtime = input.numerical.maxtime;
+
+    auto& stopped = status.stopped;
+    auto& iter = status.iteration;
+    auto& time = status.time;
+
+    while (iter < maxiter && time < maxtime && !stopped) {
         iter++;
         fields.prepare_solution_update();
 
         physics::update_timestep(sim);
         physics::update_sources(sim);
 
-        for (int stage = 0; stage < input.numerical.time_stages; ++stage) {
+        for (int stage = 0; stage < stages; ++stage) {
             math::compute_gradients(sim);
             math::reconstruction(sim);
 
@@ -104,7 +109,7 @@ void solve(Simulation& sim) {
             physics::apply_corrections(sim);
         }
 
-        if ((iter - 1) % input.output.prints_info_delay == 0) {
+        if ((iter - 1) % output.prints_info_delay == 0) {
             auto s = Logger::residuals();
             s << "iter" << "time";
             for (int v = 0; v < 5; ++v) {
@@ -112,7 +117,7 @@ void solve(Simulation& sim) {
             }
         }
 
-        if (iter % input.output.prints_delay == 0) {
+        if (iter % output.prints_delay == 0) {
             auto s = Logger::residuals();
             const std::array<double, 5> residuals = fields.get_residuals();
             s << iter << status.time;
@@ -121,28 +126,27 @@ void solve(Simulation& sim) {
             }
         }
 
-        if (iter % input.output.probe_delay == 0)
+        if (iter % output.probe_delay == 0)
             Writer::save_probes(sim);
 
-        if (iter % input.output.report_delay == 0)
+        if (iter % output.report_delay == 0)
             Writer::save_reports(sim);
 
-        if (iter % input.output.output_delay == 0)
+        if (iter % output.output_delay == 0)
             Writer::save_solution(sim);
 
-        if (iter % input.output.restart_delay == 0)
+        if (iter % output.restart_delay == 0)
             Writer::save_restart(sim);
     }
 
-    if (iter == input.numerical.maxiter) {
+    if (iter >= maxiter) {
         Logger::info() << "Maximum number of iterations ("
                        << iter << ") reached.";
     }
 
-    if (time >= input.numerical.maxtime) {
+    if (time >= maxtime) {
         Logger::info() << "Maximum simulation time ("
-                       << math::format_duration(input.numerical.maxtime)
-                       << ") reached.";
+                       << math::format_duration(maxtime) << ") reached.";
     }
 
     if (stopped) {

@@ -96,6 +96,11 @@ void update_timestep(Simulation& sim) {
     double dtconv = status.cfl / var;
     status.dt = dtconv;
     status.time += dtconv;
+
+    if (status.time > input.numerical.maxtime) {
+        status.dt -= status.time - input.numerical.maxtime;
+        status.time = input.numerical.maxtime;
+    }
 }
 
 } // namespace eulercpp::physics
