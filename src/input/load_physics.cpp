@@ -1,8 +1,8 @@
 /* -------------------------------------------------------------------------- *\
-     ___ _   _ _    ___ ___  ___ ___ ___ 
+     ___ _   _ _    ___ ___  ___ ___ ___
     | __| | | | |  | __| _ \/ __| _ \ _ \
     | _|| |_| | |__| _||   / (__|  _/  _/
-    |___|\___/|____|___|_|_\\___|_| |_|  
+    |___|\___/|____|___|_|_\\___|_| |_|
 
     Copyright 2025 Alessio Improta
 
@@ -22,8 +22,8 @@
  * @file load_physics.cpp
  * @brief Loads physics-related parameters from the configuration map.
  *
- * This source file populates the physics section of the simulation 
- * input. Parameters are read from a string-based key–value map 
+ * This source file populates the physics section of the simulation
+ * input. Parameters are read from a string-based key–value map
  * produced by the configuration parser.
  *
  * Currently handled:

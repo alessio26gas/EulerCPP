@@ -22,7 +22,7 @@
  * @file load_numerical.cpp
  * @brief Loads numerical parameters from the simulation configuration file.
  *
- * This source file contains the function responsible for extracting 
+ * This source file contains the function responsible for extracting
  * numerical method parameters from a key-value configuration map.
  *
  * Expected keys:
@@ -34,7 +34,7 @@
  *  - "reconstruction" : Reconstruction method identifier.
  *  - "limiter"        : Slope limiter identifier.
  *
- * Checks are performed to ensure the number of coefficients matches 
+ * Checks are performed to ensure the number of coefficients matches
  * the number of stages.
  *
  * @see input.hpp, input_helpers.hpp, load_numerical.hpp
@@ -65,8 +65,8 @@ namespace eulercpp {
  * @param config Map of configuration key-value pairs.
  * @param input  Input structure to update with numerical parameters.
  *
- * @throws std::invalid_argument if the number of coefficients does 
- *         not match the number of time stages or if the number of 
+ * @throws std::invalid_argument if the number of coefficients does
+ *         not match the number of time stages or if the number of
  *         stages is invalid.
  */
 void load_numerical(

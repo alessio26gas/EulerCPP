@@ -1,14 +1,21 @@
 # EulerCPP example: Supersonic cylinder
 
+# This is an example input file for EulerCPP, demonstrating how
+# to set up a 2D supersonic (Mach 3) cylinder problem.
+
 # Notes:
-# - Any line starting with `#` is a comment. 
+# - Any line starting with `#` is a comment.
 # - Lines with an `=` sign are parsed as key = value pairs.
+
+# The 2D supersonic cylinder case consists of uniform freestream flow at Mach 3
+# impinging on a circular cylinder. A detached bow shock forms upstream of the
+# cylinder, while a complex subsonic recirculation region develops in the wake.
 
 # Logger settings
 # Controls verbosity and logging output.
 # verbosity: (0 = silent, ..., 5 = debug)
 # log_file: optional path to log file
-# rhs_file: optional file for residual history 
+# rhs_file: optional file for residual history
 #           (if provided, residuals are written only there)
 verbosity=4
 log_file=cylinder.log
@@ -37,7 +44,7 @@ gamma=1.4
 # maxtime: maximum physical simulation time
 # maxiter: maximum number of iterations
 # reconstruction: 0 = 1st order, 1 = 2nd order (MUSCL)
-# limiter: 
+# limiter:
 #    0 = minmod, 1 = superbee, 2 = van Leer,
 #    3 = Venkatakrishnan, 4 = modified Venkatakrishnan
 # riemann:
@@ -85,7 +92,7 @@ report_1_cg=0.0,0.0,0.0
 # Initial conditions
 # - restart: 0 = start from scratch, 1 = start from restart file
 # - restart_file: path to restart file (if restart=1)
-# - initial_variables: 
+# - initial_variables:
 #    0 = specify T0
 #    1 = specify rho0
 # - additional_blocks: number of override regions (boxes)

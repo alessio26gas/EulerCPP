@@ -22,7 +22,7 @@
  * @file sources.cpp
  * @brief Implements source term computation.
  *
- * This file provides the implementation of source term updates. Source 
+ * This file provides the implementation of source term updates. Source
  * terms are scaled by element volume and computed in parallel with OpenMP.
  *
  * @author Alessio Improta

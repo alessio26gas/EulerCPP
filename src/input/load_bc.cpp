@@ -30,7 +30,7 @@
  *  - For each boundary b (1-based):
  *      - "bc_b"      : boundary type (physics::BCType code).
  *      - "bc_b_id"   : boundary identifier.
- *      - "bc_b_xmin", "bc_b_ymin", "bc_b_zmin", 
+ *      - "bc_b_xmin", "bc_b_ymin", "bc_b_zmin",
  *        "bc_b_xmax", "bc_b_ymax", "bc_b_zmax",
  *        "bc_b_radius", "bc_b_center" : spatial extents.
  *      - "bc_b_var_j": value for variable j, 1 ≤ j ≤ 5.

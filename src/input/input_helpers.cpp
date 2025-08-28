@@ -30,7 +30,7 @@
  *  - Trim and sanitize string data before interpretation.
  *
  * Functions include:
- *  - parse_config_file(): Reads and parses configuration files into a 
+ *  - parse_config_file(): Reads and parses configuration files into a
  * key-value map.
  *  - parse_vector(): Converts a comma-separated string into doubles.
  *  - parse_int_vector(): Converts a comma-separated string into integers.
@@ -41,7 +41,7 @@
  * @see parse_config_file, parse_vector, parse_int_vector
  * @author Alessio Improta
  * @details
- * All parsing functions ignore malformed entries gracefully by applying 
+ * All parsing functions ignore malformed entries gracefully by applying
  * default values (0.0 for doubles, 0 for integers).
  */
 

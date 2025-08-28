@@ -39,7 +39,7 @@ namespace eulercpp::physics::bc {
 /**
  * @brief Initialize a supersonic inlet state.
  *
- * Converts user-specified boundary condition parameters into a 
+ * Converts user-specified boundary condition parameters into a
  * conservative state vector.
  *
  * @param bc   Boundary condition object to initialize.
@@ -49,20 +49,25 @@ namespace eulercpp::physics::bc {
  *       to prepare the `bc.state` values.
  */
 void init_supersonic_inlet(Boundary& bc, const Simulation& sim) {
-    double M = bc.value[0];
-    double p = bc.value[1];
-    double T = bc.value[2];
-    double alpha = bc.value[3], phi = bc.value[4];
+    const double PI = 3.14159265358979323846;
+    bc.value[3] *= PI / 180.0;
+    bc.value[4] *= PI / 180.0;
 
-    double R = sim.input.fluid.R;
-    double gamma = sim.input.fluid.gamma;
-    double V = M * std::sqrt(gamma * R * T);
+    const double M = bc.value[0];
+    const double p = bc.value[1];
+    const double T = bc.value[2];
+    const double alpha = bc.value[3];
+    const double phi = bc.value[4];
 
-    double rho = p / R / T;
-    double u = V * std::cos(alpha) * std::cos(phi);
-    double v = V * std::sin(alpha) * std::cos(phi);
-    double w = V * std::sin(phi);
-    double E = p / (gamma-1.0) + 0.5*rho*V*V;
+    const double R = sim.input.fluid.R;
+    const double gamma = sim.input.fluid.gamma;
+    const double V = M * std::sqrt(gamma * R * T);
+
+    const double rho = p / R / T;
+    const double u = V * std::cos(alpha) * std::cos(phi);
+    const double v = V * std::sin(alpha) * std::cos(phi);
+    const double w = V * std::sin(phi);
+    const double E = p / (gamma-1.0) + 0.5*rho*V*V;
 
     bc.state = {rho, u, v, w, E};
 }
@@ -82,7 +87,7 @@ void init_supersonic_inlet(Boundary& bc, const Simulation& sim) {
  * @param fields  Simulation fields.
  */
 void supersonic_inlet(
-    const Input& input, 
+    const Input& input,
     const Face& face,
     const int f,
     const Boundary& bc,
@@ -94,7 +99,7 @@ void supersonic_inlet(
     const double p = bc.value[1];
 
     const auto& n = face.normal;
-    double un = u * n[0] + v * n[1] + w * n[2];
+    const double un = u * n[0] + v * n[1] + w * n[2];
 
     fields.F(f, 0) = rho * un;
     fields.F(f, 1) = p * n[0] + rho * u * un;

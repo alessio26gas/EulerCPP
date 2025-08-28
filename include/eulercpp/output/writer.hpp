@@ -86,7 +86,7 @@ public:
     /**
      * @brief Save the current simulation state to a VTK or CSV file.
      *
-     * Filename is generated as `output_name_XXXXXX`, where XXXXXX is 
+     * Filename is generated as `output_name_XXXXXX`, where XXXXXX is
      * the zero-padded iteration number.
      *
      * @param sim Simulation object to write
@@ -98,7 +98,7 @@ public:
     /**
      * @brief Save a restart file for the current simulation state.
      *
-     * The restart file is saved as `output_name.restart` in the 
+     * The restart file is saved as `output_name.restart` in the
      * output directory.
      *
      * @param sim Simulation object to write
@@ -108,8 +108,8 @@ public:
     /**
      * @brief Initialize probe output.
      *
-     * Creates and opens the probe CSV file in the output directory, 
-     * writes the header line, and assigns each probe to its nearest 
+     * Creates and opens the probe CSV file in the output directory,
+     * writes the header line, and assigns each probe to its nearest
      * mesh element centroid.
      *
      * @param sim Simulation object
@@ -138,7 +138,7 @@ public:
     /**
      * @brief Write report data to the reports CSV file.
      *
-     * Computes integral quantities over each boundary report defined in 
+     * Computes integral quantities over each boundary report defined in
      * the input and appends results to the file.
      *
      * @param sim Simulation object

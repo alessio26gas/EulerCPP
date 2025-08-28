@@ -23,7 +23,7 @@
  * @brief Declares structures and functions for physics input settings.
  *
  * Defines the Physics struct, which holds all physics parameters for
- * the simulation. Declares load_physics() to populate these parameters 
+ * the simulation. Declares load_physics() to populate these parameters
  * from a configuration map into the global Input structure.
  *
  * @author Alessio Improta

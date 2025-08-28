@@ -24,7 +24,7 @@
  *
  * This source file contains the implementation of advancing the
  * simulation solution for one stage of a multi-stage time integration
- * scheme. It computes the updated conservative variables using fluxes 
+ * scheme. It computes the updated conservative variables using fluxes
  * and source terms stored in the Simulation object.
  *
  * The file also maintains an internal static counter to track the
@@ -44,7 +44,7 @@
 
 namespace eulercpp::math {
 
-/** 
+/**
  * @brief Internal counter for multi-stage time integration.
  *
  * This static variable keeps track of the current stage in

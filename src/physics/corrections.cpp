@@ -38,9 +38,9 @@ namespace eulercpp::physics {
 /**
  * @brief Apply local corrections to unphysical solution values.
  *
- * The function checks each element in the mesh for NaN/Inf values or 
- * unphysical conserved variables (negative density or pressure). If found, 
- * the solution is corrected using weighted averages of neighboring cells' 
+ * The function checks each element in the mesh for NaN/Inf values or
+ * unphysical conserved variables (negative density or pressure). If found,
+ * the solution is corrected using weighted averages of neighboring cells'
  * previous state.
  *
  * Parallelized with OpenMP for improved performance.
@@ -95,19 +95,19 @@ void apply_corrections(Simulation& sim) {
                     for (int f = 0; f < n_f; ++f) {
                         int n = elem.neighbors[f];
                         if (n < 0) continue;
-                        if (
-                            std::isnan(fields.Wold(n, v)) ||
-                            std::isinf(fields.Wold(n, v))
-                        ) continue;
+                        if (std::isnan(fields.Wold(n, v)) ||
+                            std::isinf(fields.Wold(n, v))) {
+                            continue;
+                        }
                         double Kn = 0.5*(
                             fields.Wold(n, 1)*fields.Wold(n, 1) +
                             fields.Wold(n, 2)*fields.Wold(n, 2) +
                             fields.Wold(n, 3)*fields.Wold(n, 3)
                         ) / fields.Wold(n, 0);
-                        if (
-                            fields.Wold(n, 0) < 0.0 ||
-                            fields.Wold(n, 4) < Kn
-                        ) continue;
+                        if (fields.Wold(n, 0) < 0.0 ||
+                            fields.Wold(n, 4) < Kn) {
+                            continue;
+                        }
                         correction += fields.Wold(n, v);
                         den++;
                     }
@@ -120,19 +120,19 @@ void apply_corrections(Simulation& sim) {
                             for (int fn = 0; fn < n_fn; ++fn) {
                                 int nn = elem_n.neighbors[fn];
                                 if (nn < 0) continue;
-                                if (
-                                    std::isnan(fields.Wold(nn, v)) ||
-                                    std::isinf(fields.Wold(nn, v))
-                                ) continue;
+                                if (std::isnan(fields.Wold(nn, v)) ||
+                                    std::isinf(fields.Wold(nn, v))) {
+                                    continue;
+                                }
                                 double Knn = 0.5*(
                                     fields.Wold(nn, 1)*fields.Wold(nn, 1) +
                                     fields.Wold(nn, 2)*fields.Wold(nn, 2) +
                                     fields.Wold(nn, 3)*fields.Wold(nn, 3)
                                 ) / fields.Wold(nn, 0);
-                                if (
-                                    fields.Wold(nn, 0) < 0.0 ||
-                                    fields.Wold(nn, 4) < Knn
-                                ) continue;
+                                if (fields.Wold(nn, 0) < 0.0 ||
+                                    fields.Wold(nn, 4) < Knn) {
+                                    continue;
+                                }
                                 correction += fields.Wold(nn, v);
                                 den++;
                             }
@@ -148,13 +148,13 @@ void apply_corrections(Simulation& sim) {
         corrections += thread_corrections;
     }
 
-    // If the number of corrections exceeds the threshold, 
+    // If the number of corrections exceeds the threshold,
     // terminate the simulation.
     if (corrections > 0.1 * mesh.n_boundaries) {
         throw std::runtime_error("A floating point error has occurred.");
     }
 
-    // Print a message indicating how many 
+    // Print a message indicating how many
     // corrections were applied, if necessary.
     if (corrections > 0)
         Logger::debug() << "corrections limited on "

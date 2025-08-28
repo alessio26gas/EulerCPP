@@ -60,6 +60,10 @@ namespace eulercpp::physics::bc {
  * @param sim  Simulation object.
  */
 void init_stagnation_inlet(Boundary& bc, const Simulation& sim) {
+    const double PI = 3.14159265358979323846;
+    bc.value[3] *= PI / 180.0;
+    bc.value[4] *= PI / 180.0;
+
     const double Htot = bc.value[0];
     const double Ptot = bc.value[1];
     const double Psup = bc.value[2];

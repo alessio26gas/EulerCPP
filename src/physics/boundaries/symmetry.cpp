@@ -27,7 +27,7 @@
  * @author Alessio Improta
  */
 
-#include <array> 
+#include <array>
 
 #include <eulercpp/input/input.hpp>
 #include <eulercpp/mesh/faces.hpp>

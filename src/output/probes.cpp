@@ -23,8 +23,8 @@
  * @brief Implements initialization and data collection for flow probes.
  *
  * Probes are located at user-specified locations in the domain.
- * Each probe is assigned to the nearest mesh element centroid. During the 
- * simulation, primitive flow quantities are sampled and written to a CSV 
+ * Each probe is assigned to the nearest mesh element centroid. During the
+ * simulation, primitive flow quantities are sampled and written to a CSV
  * file over time.
  *
  * @author Alessio Improta
@@ -45,8 +45,8 @@ namespace eulercpp::probes {
 /**
  * @brief Initialize probes and assign each to its closest mesh element.
  *
- * For every probe defined in the input file, the nearest element centroid 
- * is found (parallelized with OpenMP). A CSV file is opened and the header 
+ * For every probe defined in the input file, the nearest element centroid
+ * is found (parallelized with OpenMP). A CSV file is opened and the header
  * line is written.
  *
  * @param sim Simulation object containing mesh and input data.
@@ -99,7 +99,7 @@ std::ofstream init_probes(Simulation& sim, const std::string& filepath) {
            "Pressure,Temperature,Mach\n";
 
     ofs << std::scientific << std::setprecision(7);
-    
+
     return ofs;
 }
 

@@ -22,7 +22,7 @@
  * @file writer.cpp
  * @brief Implementation of the Writer class for saving simulation output.
  *
- * Provides methods to save simulation data and restart files, including 
+ * Provides methods to save simulation data and restart files, including
  * automatic directory creation.
  *
  * @author Alessio Improta

@@ -47,14 +47,14 @@ namespace eulercpp {
  * @brief Reads the node data from a mesh file into the mesh structure.
  *
  * This function searches for the `$Nodes` section in the mesh file and
- * parses node information (ID and XYZ coordinates) into the mesh's 
+ * parses node information (ID and XYZ coordinates) into the mesh's
  * `nodes` vector.
  *
- * @param file Reference to an input file stream positioned at the beginning 
+ * @param file Reference to an input file stream positioned at the beginning
  * of the mesh file.
  * @param mesh Reference to the Mesh structure where node data will be stored.
  *
- * @throws std::runtime_error If reading the number of nodes or individual 
+ * @throws std::runtime_error If reading the number of nodes or individual
  * node data fails.
  *
  * @note The mesh file must follow a standard format where node data follows

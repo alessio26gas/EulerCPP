@@ -68,6 +68,14 @@ Results were obtained using the **HLLC Riemann solver** and **second-order MUSCL
 
 ### Building
 
+Clone the repository:
+
+```bash
+git clone https://github.com/alessioimprota/EulerCPP.git
+
+cd EulerCPP
+```
+
 Use helper scripts:
 
 ```bash
@@ -110,14 +118,14 @@ Run a simulation by providing an input file:
 # EulerCPP input file example
 
 # Notes:
-# - Any line starting with `#` is a comment. 
+# - Any line starting with `#` is a comment.
 # - Lines with an `=` sign are parsed as key = value pairs.
 
 # Logger settings
 # Controls verbosity and logging output.
 # verbosity: (0 = silent, ..., 5 = debug)
 # log_file: optional path to log file
-# rhs_file: optional file for residual history 
+# rhs_file: optional file for residual history
 #           (if provided, residuals are written only there)
 verbosity=4
 log_file=output.log
@@ -195,7 +203,7 @@ report_1_cg=0.0,0.0,0.0
 # Initial conditions
 # - restart: 0 = start from scratch, 1 = start from restart file
 # - restart_file: path to restart file (if restart=1)
-# - initial_variables: 
+# - initial_variables:
 #    0 = specify T_0
 #    1 = specify rho_0
 # - additional_blocks: number of override regions (boxes)

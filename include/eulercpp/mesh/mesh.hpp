@@ -76,7 +76,7 @@ struct Mesh {
 /**
  * @brief Reads and processes the computational mesh from a file.
  *
- * This function opens the specified mesh file and sequentially calls 
+ * This function opens the specified mesh file and sequentially calls
  * the necessary functions to read nodes, read elements, compute element
  * and face properties, face normals, and distances.
  *

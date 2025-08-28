@@ -22,8 +22,8 @@
  * @file reports.cpp
  * @brief Implements output of global reports.
  *
- * Reports are global integral quantities evaluated on user-defined boundary 
- * patches. For each report, the code integrates fluxes across all faces with 
+ * Reports are global integral quantities evaluated on user-defined boundary
+ * patches. For each report, the code integrates fluxes across all faces with
  * the specified boundary tag, then outputs total mass flow rate, forces, and
  * moments at the chosen reference center of gravity (cg).
  *
@@ -44,8 +44,8 @@ namespace eulercpp::reports {
 /**
  * @brief Initialize reports and open CSV output file.
  *
- * This function creates a CSV file for storing global integral quantities 
- * (mass flow, forces, and moments). The file header is written, and the 
+ * This function creates a CSV file for storing global integral quantities
+ * (mass flow, forces, and moments). The file header is written, and the
  * stream is returned to the caller for use in subsequent timesteps.
  *
  * @param sim Constant reference to the simulation object.

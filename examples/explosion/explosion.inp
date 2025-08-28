@@ -1,14 +1,22 @@
 # EulerCPP example: Explosion test in 2D
 
+# This is an example input file for EulerCPP, demonstrating how
+# to set up the classic 2D explosion test.
+
 # Notes:
-# - Any line starting with `#` is a comment. 
+# - Any line starting with `#` is a comment.
 # - Lines with an `=` sign are parsed as key = value pairs.
+
+# This classical benchmark consists of a strong explosion initialized at the
+# center of a square domain. The large pressure ratio between the central
+# region and the surroundings drives the formation of shocks and rarefactions
+# waves that interact in a highly nonlinear way.
 
 # Logger settings
 # Controls verbosity and logging output.
 # verbosity: (0 = silent, ..., 5 = debug)
 # log_file: optional path to log file
-# rhs_file: optional file for residual history 
+# rhs_file: optional file for residual history
 #           (if provided, residuals are written only there)
 verbosity=3
 log_file=explosion.log
@@ -37,7 +45,7 @@ gamma=1.4
 # maxtime: maximum physical simulation time
 # maxiter: maximum number of iterations
 # reconstruction: 0 = 1st order, 1 = 2nd order (MUSCL)
-# limiter: 
+# limiter:
 #    0 = minmod, 1 = superbee, 2 = van Leer,
 #    3 = Venkatakrishnan, 4 = modified Venkatakrishnan
 # riemann:
@@ -83,7 +91,7 @@ n_reports=0
 # Initial conditions
 # - restart: 0 = start from scratch, 1 = start from restart file
 # - restart_file: path to restart file (if restart=1)
-# - initial_variables: 
+# - initial_variables:
 #    0 = specify T0
 #    1 = specify rho0
 # - additional_blocks: number of override regions (boxes)

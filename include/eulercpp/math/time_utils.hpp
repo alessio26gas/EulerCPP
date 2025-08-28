@@ -66,21 +66,23 @@ namespace eulercpp::math {
 inline std::string format_duration(double seconds) {
     std::ostringstream out;
 
-    if (seconds < 1e-5) {
-        out << std::fixed << std::setprecision(0) << seconds * 1e6 << " μs";
-    } else if (seconds < 1e-2) {
-        out << std::fixed << std::setprecision(2) << seconds * 1e3 << " ms";
-    } else if (seconds < 60) {
+    if (seconds < 1.0e-5) {
+        out << std::fixed << std::setprecision(0) << seconds * 1.0e6 << " μs";
+    } else if (seconds < 1.0e-2) {
+        out << std::fixed << std::setprecision(2) << seconds * 1.0e3 << " ms";
+    } else if (seconds < 60.0) {
         out << std::fixed << std::setprecision(2) << seconds << " s";
-    } else if (seconds < 3600) {
+    } else if (seconds < 3600.0) {
         int minutes = static_cast<int>(seconds) / 60;
         double rem_seconds = seconds - (minutes * 60);
-        out << minutes << " min " << std::fixed << std::setprecision(1) << rem_seconds << " s";
+        out << minutes << " min " << std::fixed << std::setprecision(1)
+            << rem_seconds << " s";
     } else {
         int hours = static_cast<int>(seconds) / 3600;
         int minutes = (static_cast<int>(seconds) % 3600) / 60;
         double rem_seconds = seconds - (hours * 3600 + minutes * 60);
-        out << hours << " h " << minutes << " min " << std::fixed << std::setprecision(0) << rem_seconds << " s";
+        out << hours << " h " << minutes << " min " << std::fixed
+            << std::setprecision(0) << rem_seconds << " s";
     }
 
     return out.str();

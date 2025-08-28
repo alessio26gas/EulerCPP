@@ -23,7 +23,7 @@
  * @brief Supersonic outlet boundary condition implementation.
  *
  * Defines the function that applies a supersonic outlet boundary condition.
- * At this boundary, all variables are extrapolated from the interior solution, 
+ * At this boundary, all variables are extrapolated from the interior solution,
  * with fluxes computed directly from the conserved state.
  *
  * @author Alessio Improta

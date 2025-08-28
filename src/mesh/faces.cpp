@@ -274,7 +274,7 @@ void compute_faces(Mesh& mesh) {
                         face.n_nodes = 3;
                         face.nodes.resize(face.n_nodes);
                         for (int j = 0; j < face.n_nodes; ++j) {
-                            face.nodes[j] = 
+                            face.nodes[j] =
                                 elem.nodes[pyramid_index[4+3*(f-1)+j]-1];
                         }
                     }

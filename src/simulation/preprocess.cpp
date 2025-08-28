@@ -50,10 +50,10 @@
 namespace eulercpp {
 
 /**
- * @brief Preprocess the simulation by setting up fields, boundaries, and 
+ * @brief Preprocess the simulation by setting up fields, boundaries, and
  * initial conditions.
  *
- * The `preprocess` function performs all necessary steps to prepare the 
+ * The `preprocess` function performs all necessary steps to prepare the
  * simulation before the main time integration. This includes:
  * 1. Setting up signal handling for graceful exit
  * 2. Allocating and initializing all fields
@@ -73,7 +73,7 @@ void preprocess(Simulation& sim) {
     Input& input = sim.input;
     Mesh& mesh = sim.mesh;
     Fields& fields = sim.fields;
-    
+
     Logger::debug() << "Setting up signal handling...";
     setup_signal_handler(sim);
     Logger::debug() << "Signal handling set up.";

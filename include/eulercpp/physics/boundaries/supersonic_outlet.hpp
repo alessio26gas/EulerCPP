@@ -23,8 +23,8 @@
  * @brief Supersonic outlet boundary condition implementation.
  *
  * Declares the function interface for applying a supersonic outlet
- * boundary condition. Supersonic outlets allow all variables to convect 
- * freely out of the domain without feedback, enforcing fluxes based on 
+ * boundary condition. Supersonic outlets allow all variables to convect
+ * freely out of the domain without feedback, enforcing fluxes based on
  * the interior state.
  *
  * @author Alessio Improta

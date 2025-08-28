@@ -22,8 +22,8 @@
  * @file load_numerical.hpp
  * @brief Input handling for numerical solver settings.
  *
- * Declares the structure and function to load numerical parameters 
- * from a key-value configuration map. Includes reconstruction scheme, 
+ * Declares the structure and function to load numerical parameters
+ * from a key-value configuration map. Includes reconstruction scheme,
  * limiter, time integration settings, CFL, maximum time, and iteration limits.
  *
  * @author Alessio Improta
@@ -74,8 +74,8 @@ struct Numerical {
  * @param config Map of configuration key-value pairs.
  * @param input  Input structure to update with numerical parameters.
  *
- * @throws std::invalid_argument if the number of coefficients does 
- *         not match the number of time stages or if the number of 
+ * @throws std::invalid_argument if the number of coefficients does
+ *         not match the number of time stages or if the number of
  *         stages is invalid.
  */
 void load_numerical(const std::map<std::string, std::string>& config, Input& input);

@@ -22,7 +22,7 @@
  * @file load_mesh.cpp
  * @brief Loads mesh-related parameters from the configuration map.
  *
- * This function searches for mesh-specific keys in the input configuration 
+ * This function searches for mesh-specific keys in the input configuration
  * and updates the corresponding fields in the Input structure.
  *
  * Expected keys:

@@ -31,7 +31,7 @@
  * - Midpoint computation
  * - Normalization of vectors
  *
- * All operations are designed for 3D vectors represented by 
+ * All operations are designed for 3D vectors represented by
  * `std::array<double, 3>`.
  *
  * @author Alessio Improta

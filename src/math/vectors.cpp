@@ -31,7 +31,7 @@
  * - Midpoint computation
  * - In-place normalization
  *
- * These functions are optimized for 3D vectors represented as 
+ * These functions are optimized for 3D vectors represented as
  * `std::array<double, 3>`.
  *
  * @author Alessio Improta

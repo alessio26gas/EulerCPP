@@ -1,23 +1,23 @@
 # EulerCPP example: 1D Sod shock tube problem
 
-# This is an example input file for EulerCPP, demonstrating how 
-# to set up the classic 1D Sod shock tube problem. 
+# This is an example input file for EulerCPP, demonstrating how
+# to set up the classic 1D Sod shock tube problem.
 
 # Notes:
-# - Any line starting with `#` is a comment. 
+# - Any line starting with `#` is a comment.
 # - Lines with an `=` sign are parsed as key = value pairs.
 
-# The Sod shock tube consists of a diaphragm separating two 
-# chambers of ideal gas with different states. When the diaphragm 
-# is removed at t=0, a shock wave, contact discontinuity, and 
-# rarefaction wave are formed. This benchmark problem is widely 
+# The Sod shock tube consists of a diaphragm separating two
+# chambers of ideal gas with different states. When the diaphragm
+# is removed at t=0, a shock wave, contact discontinuity, and
+# rarefaction wave are formed. This benchmark problem is widely
 # used to validate compressible CFD solvers.
 
 # Logger settings
 # Controls verbosity and logging output.
 # verbosity: (0 = silent, ..., 5 = debug)
 # log_file: optional path to log file
-# rhs_file: optional file for residual history 
+# rhs_file: optional file for residual history
 #           (if provided, residuals are written only there)
 verbosity=3
 log_file=sodtube.log
@@ -48,7 +48,7 @@ gamma=1.4
 # maxtime: maximum physical simulation time
 # maxiter: maximum number of iterations
 # reconstruction: 0 = 1st order, 1 = 2nd order (MUSCL)
-# limiter: 
+# limiter:
 #    0 = minmod, 1 = superbee, 2 = van Leer,
 #    3 = Venkatakrishnan, 4 = modified Venkatakrishnan
 # riemann:
@@ -94,7 +94,7 @@ n_reports=0
 # Initial conditions
 # - restart: 0 = start from scratch, 1 = start from restart file
 # - restart_file: path to restart file (if restart=1)
-# - initial_variables: 
+# - initial_variables:
 #    0 = specify T0
 #    1 = specify rho0
 # - additional_blocks: number of override regions (boxes)

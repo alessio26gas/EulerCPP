@@ -22,8 +22,8 @@
  * @file signal_handler.hpp
  * @brief Provides signal handling for graceful simulation termination.
  *
- * This header defines functions to handle operating system signals 
- * to stop the simulation cleanly. It allows the current iteration 
+ * This header defines functions to handle operating system signals
+ * to stop the simulation cleanly. It allows the current iteration
  * to finish before exiting, ensuring proper cleanup and logging.
  *
  * @author Alessio Improta

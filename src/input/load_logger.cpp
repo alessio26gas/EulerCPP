@@ -66,7 +66,7 @@ void load_logger(
         Logger::set_verbosity(
             static_cast<Logger::Level>(std::stoi(it->second))
         );
-    
+
     it = config.find("log_file");
     if (it != config.end()) {
         Logger::set_log_file(it->second);

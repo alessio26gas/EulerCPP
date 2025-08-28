@@ -22,9 +22,9 @@
  * @file load_logger.hpp
  * @brief Configuration of the simulation logger.
  *
- * This file declares the function to load logger settings from a 
- * configuration map, including verbosity levels and optional 
- * log file paths. The logger configuration is applied to the 
+ * This file declares the function to load logger settings from a
+ * configuration map, including verbosity levels and optional
+ * log file paths. The logger configuration is applied to the
  * Input structure.
  *
  * @author Alessio Improta

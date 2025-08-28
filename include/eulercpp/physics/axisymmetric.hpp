@@ -48,7 +48,7 @@ void axisymmetry_sources(Simulation& sim);
 /**
  * @brief Initialize the simulation mesh for axisymmetric calculations.
  *
- * Modifies the volume of each element and the area of each face by 
+ * Modifies the volume of each element and the area of each face by
  * multiplying with the radial coordinate to account for axisymmetry.
  *
  * @param sim Reference to the Simulation object to be initialized.

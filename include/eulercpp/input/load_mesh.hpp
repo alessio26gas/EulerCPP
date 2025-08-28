@@ -22,8 +22,8 @@
  * @file load_mesh.hpp
  * @brief Input handling for mesh settings.
  *
- * Declares the structure and function to load mesh parameters 
- * from a key-value configuration map. Includes mesh file path 
+ * Declares the structure and function to load mesh parameters
+ * from a key-value configuration map. Includes mesh file path
  * and minimum allowed cell volume.
  *
  * @author Alessio Improta

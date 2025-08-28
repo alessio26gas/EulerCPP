@@ -22,7 +22,7 @@
  * @file mesh.cpp
  * @brief Implementation of mesh reading and initialization functions.
  *
- * This file contains functions to load and process the computational 
+ * This file contains functions to load and process the computational
  * mesh from a file. It includes:
  * - Reading nodes and elements from a mesh file.
  * - Computing element and face properties.
@@ -52,7 +52,7 @@ namespace eulercpp {
 /**
  * @brief Reads and processes the computational mesh from a file.
  *
- * This function opens the specified mesh file and sequentially calls 
+ * This function opens the specified mesh file and sequentially calls
  * the necessary functions to read nodes, read elements, compute element
  * and face properties, face normals, and distances.
  *
@@ -100,7 +100,7 @@ void read_mesh(Simulation& sim) {
 
     clock_t end = clock();
     double elapsed = (double)(end - start) / CLOCKS_PER_SEC;
-    Logger::success() << "Mesh loaded. (" 
+    Logger::success() << "Mesh loaded. ("
                       << math::format_duration(elapsed) << ")";
 }
 

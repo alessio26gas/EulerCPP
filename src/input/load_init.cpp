@@ -22,9 +22,9 @@
  * @file load_init.cpp
  * @brief Loads and sets up the initial conditions for the simulation.
  *
- * This source file provides functionality to parse initial condition 
- * parameters from the configuration map. It supports both a restart 
- * mechanism and fresh initialization from density/temperature-based 
+ * This source file provides functionality to parse initial condition
+ * parameters from the configuration map. It supports both a restart
+ * mechanism and fresh initialization from density/temperature-based
  * states.
  *
  * Main features:
@@ -32,7 +32,7 @@
  *      - "restart"       : Flag to enable restart mode (0 = no, 1 = yes).
  *      - "restart_file"  : Path to the restart file (required if restart=1).
  *  - Initial state variables:
- *      - "initial_variables" : Defines whether initialization is based on 
+ *      - "initial_variables" : Defines whether initialization is based on
  * temperature (0) or density (1).
  *      - "rho_0", "p_0", "T_0", "u_0", "v_0", "w_0"
  *  - Additional blocks:

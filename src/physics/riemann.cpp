@@ -44,8 +44,8 @@ static RiemannSolver riemann_solver = nullptr;
 /**
  * @brief Rusanov Riemann solver
  *
- * This function computes the flux at the interface between two states using 
- * the Rusanov Riemann solver. The Rusanov solver uses the maximum wave speed 
+ * This function computes the flux at the interface between two states using
+ * the Rusanov Riemann solver. The Rusanov solver uses the maximum wave speed
  * to estimate the flux at the interface.
  *
  * @param WL Pointer to the left state array.
@@ -94,8 +94,8 @@ rusanov(const double* WL, const double* WR, double* F, const double gam) {
 /**
  * @brief HLL Riemann solver
  *
- * This function computes the flux at the interface between two states using 
- * the HLL (Harten-Lax-van Leer) solver. The HLL solver is a Godunov-type 
+ * This function computes the flux at the interface between two states using
+ * the HLL (Harten-Lax-van Leer) solver. The HLL solver is a Godunov-type
  * method which approximates the flux based on the wave speeds.
  *
  * @param WL Pointer to the left state array.
@@ -156,9 +156,9 @@ hll(const double* WL, const double* WR, double* F, const double gam) {
 /**
  * @brief HLLC Riemann solver
  *
- * This function computes the flux at the interface between two states using 
- * the HLLC (Harten-Lax-van Leer-Contact) solver. The HLLC solver improves on 
- * the HLL by including a contact wave, leading to a more accurate flux 
+ * This function computes the flux at the interface between two states using
+ * the HLLC (Harten-Lax-van Leer-Contact) solver. The HLLC solver improves on
+ * the HLL by including a contact wave, leading to a more accurate flux
  * calculation.
  *
  * @param WL Pointer to the left state array.

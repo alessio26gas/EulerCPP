@@ -22,9 +22,9 @@
  * @file load_input.hpp
  * @brief Master input loader.
  *
- * This header includes all individual input loading headers. It provides 
- * a single entry point to import the entire simulation configuration, 
- * including logger, physics, fluid, mesh, numerical settings, initial 
+ * This header includes all individual input loading headers. It provides
+ * a single entry point to import the entire simulation configuration,
+ * including logger, physics, fluid, mesh, numerical settings, initial
  * conditions, boundary conditions, and output options.
  *
  * @author Alessio Improta

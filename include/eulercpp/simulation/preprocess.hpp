@@ -23,7 +23,7 @@
  * @brief Declaration of preprocessing functions for EulerCPP simulations.
  *
  * This file provides the interface for initializing the simulation fields,
- * applying initial conditions, setting up boundaries, and enabling signal 
+ * applying initial conditions, setting up boundaries, and enabling signal
  * handling.
  *
  * @author Alessio Improta
@@ -36,10 +36,10 @@
 namespace eulercpp {
 
 /**
- * @brief Preprocess the simulation by setting up fields, boundaries, and 
+ * @brief Preprocess the simulation by setting up fields, boundaries, and
  * initial conditions.
  *
- * The `preprocess` function performs all necessary steps to prepare the 
+ * The `preprocess` function performs all necessary steps to prepare the
  * simulation before the main time integration. This includes:
  * 1. Setting up signal handling for graceful exit
  * 2. Allocating and initializing all fields

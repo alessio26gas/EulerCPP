@@ -47,7 +47,7 @@ namespace eulercpp::physics::bc {
 /**
  * @brief Initialize a supersonic inlet state.
  *
- * Converts user-specified boundary condition parameters into a 
+ * Converts user-specified boundary condition parameters into a
  * conservative state vector.
  *
  * @param bc   Boundary condition object to initialize.

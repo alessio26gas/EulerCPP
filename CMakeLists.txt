@@ -54,12 +54,12 @@ if(APPLE)
     include_directories("/opt/homebrew/opt/libomp/include")
     set(CMAKE_C_COMPILER "/opt/homebrew/opt/llvm/bin/clang")
     set(CMAKE_C_FLAGS_RELEASE "-O3 -march=native -fdata-sections
-                               -ffunction-sections -flto=auto 
+                               -ffunction-sections -flto=auto
                                -fopenmp -DNDEBUG")
 else()
-    set(CMAKE_C_FLAGS_RELEASE "-O3 -march=native -fdata-sections 
-                               -ffunction-sections -flto=auto 
-                               -ffat-lto-objects -fuse-linker-plugin 
+    set(CMAKE_C_FLAGS_RELEASE "-O3 -march=native -fdata-sections
+                               -ffunction-sections -flto=auto
+                               -ffat-lto-objects -fuse-linker-plugin
                                -fopenmp -DNDEBUG")
 endif()
 

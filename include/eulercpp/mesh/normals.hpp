@@ -46,23 +46,23 @@ struct Mesh;
  *
  * This function performs two main steps:
  *
- * 1. **Normal Vector Computation**: For each face of each element, compute 
- *    a unit-length normal vector pointing outward from the element's 
+ * 1. **Normal Vector Computation**: For each face of each element, compute
+ *    a unit-length normal vector pointing outward from the element's
  *    centroid. The method varies depending on the element type:
  *
- *    - **1D linear elements (LINEAR)**: Normals are computed from the 
+ *    - **1D linear elements (LINEAR)**: Normals are computed from the
  *      direction between element centroid and face centroid.
  *
- *    - **2D surface elements (TRIA, QUAD, POLYGON)**: Normals are 
- *      orthogonal to the face, computed using cross products of edge 
+ *    - **2D surface elements (TRIA, QUAD, POLYGON)**: Normals are
+ *      orthogonal to the face, computed using cross products of edge
  *      vectors.
  *
- *    - **3D volume elements (TETRA, HEXA, PRISM, PYRAMID, POLYHEDRON)**: 
- *      Normals are obtained by triangulating the face around a temporary 
+ *    - **3D volume elements (TETRA, HEXA, PRISM, PYRAMID, POLYHEDRON)**:
+ *      Normals are obtained by triangulating the face around a temporary
  *      centroid and summing the cross products.
  *
  * 2. **Tangent Vector Computation**: After normals are computed, each face
- *    is assigned two orthonormal tangent vectors `t1` and `t2` via a 
+ *    is assigned two orthonormal tangent vectors `t1` and `t2` via a
  *    deterministic projection method to ensure consistency.
  *
  * @param mesh Reference to the mesh containing elements, faces, and nodes.

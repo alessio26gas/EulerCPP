@@ -22,8 +22,8 @@
  * @file load_fluid.hpp
  * @brief Fluid properties loading interface.
  *
- * This header defines the Fluid struct that contains all the physical 
- * properties of the working fluid for the simulation. It also declares 
+ * This header defines the Fluid struct that contains all the physical
+ * properties of the working fluid for the simulation. It also declares
  * the function that populates these properties from a configuration map.
  *
  * @author Alessio Improta

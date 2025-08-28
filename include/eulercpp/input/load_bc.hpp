@@ -22,15 +22,15 @@
  * @file load_bc.hpp
  * @brief Boundary condition loading interface.
  *
- * This header defines the boundary condition types and data structures 
- * used in the solver. It also declares the function responsible for 
+ * This header defines the boundary condition types and data structures
+ * used in the solver. It also declares the function responsible for
  * parsing and populating boundary conditions from a configuration map.
  *
- * Boundary conditions specify how the computational domain interacts 
- * with its surroundings. They are identified by integer codes in the 
- * input configuration and mapped to the BCType enum. Each boundary can 
- * be spatially localized (via xmin, xmax, etc.) and may carry up to 
- * five real parameters (`value[]`) whose meaning depends on the type 
+ * Boundary conditions specify how the computational domain interacts
+ * with its surroundings. They are identified by integer codes in the
+ * input configuration and mapped to the BCType enum. Each boundary can
+ * be spatially localized (via xmin, xmax, etc.) and may carry up to
+ * five real parameters (`value[]`) whose meaning depends on the type
  * of boundary condition.
  *
  * @author Alessio Improta

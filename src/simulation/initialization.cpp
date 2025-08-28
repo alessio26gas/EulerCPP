@@ -64,7 +64,7 @@ namespace eulercpp {
  * - Error handling for mismatched restart files
  *
  * @param sim Reference to the Simulation object to initialize.
- * @throws std::runtime_error if the restart file cannot be read or 
+ * @throws std::runtime_error if the restart file cannot be read or
  * contains errors.
  */
 void set_initial_conditions(Simulation& sim) {

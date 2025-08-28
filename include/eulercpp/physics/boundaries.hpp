@@ -39,7 +39,7 @@ namespace eulercpp::physics {
  * @brief Apply boundary conditions to the simulation fields.
  *
  * Iterates over all boundary faces in the mesh and applies the correct
- * boundary condition. Each condition modifies the solution fluxes at 
+ * boundary condition. Each condition modifies the solution fluxes at
  * the boundary.
  *
  * Parallelized with OpenMP for large meshes.

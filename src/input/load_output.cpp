@@ -22,7 +22,7 @@
  * @file load_output.cpp
  * @brief Loads output-related parameters from the configuration file.
  *
- * This source file contains the function responsible for extracting 
+ * This source file contains the function responsible for extracting
  * output settings from a key-value configuration map.
  *
  * Expected keys:

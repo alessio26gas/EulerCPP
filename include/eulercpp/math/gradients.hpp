@@ -22,8 +22,8 @@
  * @file gradients.hpp
  * @brief Functions to compute gradients of field variables in the mesh.
  *
- * Provides routines to compute spatial gradients variables on a finite-volume 
- * mesh. The main function `compute_gradients()` calculates gradients for all 
+ * Provides routines to compute spatial gradients variables on a finite-volume
+ * mesh. The main function `compute_gradients()` calculates gradients for all
  * elements using neighboring elements and face weights.
  *
  * The computation uses OpenMP for parallelization over mesh elements.

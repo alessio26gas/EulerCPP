@@ -45,8 +45,8 @@ struct Mesh;
  * @struct Face
  * @brief Represents a face in the computational mesh.
  *
- * A face is defined by a set of nodes and connects two elements. 
- * It stores geometric and topological information such as area, 
+ * A face is defined by a set of nodes and connects two elements.
+ * It stores geometric and topological information such as area,
  * centroid, normal vector, tangents, and element connectivity.
  */
 struct Face {

@@ -67,10 +67,10 @@ enum class Limiter {
 /**
  * @brief Minmod limiter.
  *
- * The Minmod limiter tends to be highly diffusive, making it a good 
+ * The Minmod limiter tends to be highly diffusive, making it a good
  * choice for testing purposes or verifying new code modules.
  *
- * This limiter provides a monotonic reconstruction by returning 1 if 
+ * This limiter provides a monotonic reconstruction by returning 1 if
  * the ratio is less than 1, and 1/rf otherwise.
  *
  * @param rf The ratio of differences used in the reconstruction.
@@ -83,7 +83,7 @@ inline double minmod(double rf) {
 /**
  * @brief Superbee limiter.
  *
- * The Superbee limiter is more aggressive in preserving sharp gradients 
+ * The Superbee limiter is more aggressive in preserving sharp gradients
  * than most other second-order limiters.
  *
  * It returns 2.0 for rf < 0.5, and computes a value using rf for rf >= 0.5.
@@ -99,8 +99,8 @@ inline double superbee(double rf) {
 /**
  * @brief Van Leer limiter.
  *
- * The Van Leer limiter is a classic, symmetric second-order TVD limiter. 
- * It is known for being robust while introducing less numerical diffusion 
+ * The Van Leer limiter is a classic, symmetric second-order TVD limiter.
+ * It is known for being robust while introducing less numerical diffusion
  * than the Minmod limiter.
  *
  * It returns 2.0 / (rf + 1.0).
@@ -115,12 +115,12 @@ inline double vanleer(double rf) {
 /**
  * @brief Venkatakrishnan limiter.
  *
- * Venkatakrishnan's limiter is widely used because of its superior 
- * convergence properties. This limiter often depends on a parameter 
- * intended to control the amount of limiting. Setting it to zero results 
- * in full limiting, but this may stall the convergence. Contrary to that, 
- * if the parameter is set to a large value, the limiter function will 
- * return a value of about unity. Hence, there will be no limiting at all 
+ * Venkatakrishnan's limiter is widely used because of its superior
+ * convergence properties. This limiter often depends on a parameter
+ * intended to control the amount of limiting. Setting it to zero results
+ * in full limiting, but this may stall the convergence. Contrary to that,
+ * if the parameter is set to a large value, the limiter function will
+ * return a value of about unity. Hence, there will be no limiting at all
  * and wiggles could occur in the solution.
  * In this implementation the parameter is set to zero (K = 0).
  *
@@ -147,7 +147,7 @@ inline double modified_venkatakrishnan(double rf) {
 /**
  * @brief Type alias for a limiter function.
  *
- * This type alias defines a function pointer type for limiter functions 
+ * This type alias defines a function pointer type for limiter functions
  * that take a double as input and return a double.
  */
 using LimiterFunction = double(*)(double);

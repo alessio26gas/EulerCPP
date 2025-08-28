@@ -23,7 +23,7 @@
  * @brief Declaration of the main solver function for EulerCPP simulations.
  *
  * This file provides the interface for running the time-stepping solver,
- * updating fields, computing fluxes, applying boundary conditions and 
+ * updating fields, computing fluxes, applying boundary conditions and
  * corrections, and writing output periodically.
  *
  * The solver handles multi-stage time integration and supports graceful

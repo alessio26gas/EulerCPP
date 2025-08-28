@@ -22,7 +22,7 @@
  * @file fluxes.hpp
  * @brief Declarations for flux computation.
  *
- * Provides functions to compute convective fluxes across mesh faces using 
+ * Provides functions to compute convective fluxes across mesh faces using
  * Riemann solvers and mapping fluxes back to the element coordinate system.
  *
  * Supports parallel execution using OpenMP.

@@ -35,10 +35,10 @@
  *
  * It provides two main functions:
  *  - read_input_file(): Reads and processes the configuration file.
- *  - load_input(): Orchestrates input file validation, timing, and 
+ *  - load_input(): Orchestrates input file validation, timing, and
  * execution of read_input_file().
  *
- * All diagnostic messages and errors are handled through the Logger 
+ * All diagnostic messages and errors are handled through the Logger
  * system.
  *
  * @see input.hpp, input_helpers.hpp, load_input.hpp

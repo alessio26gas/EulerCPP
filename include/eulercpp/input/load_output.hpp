@@ -43,8 +43,8 @@ struct Input;
  * @struct Probe
  * @brief Defines a probe point in the domain for monitoring flow variables.
  *
- * A probe is associated with the nearest mesh element centroid to the 
- * user-defined location. During the simulation, primitive/conserved variables 
+ * A probe is associated with the nearest mesh element centroid to the
+ * user-defined location. During the simulation, primitive/conserved variables
  * at that element are sampled and written to the probe output file.
  */
 struct Probe {

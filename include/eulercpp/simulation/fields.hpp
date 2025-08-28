@@ -22,9 +22,9 @@
  * @file fields.hpp
  * @brief Defines the Fields class holding all simulation variables and fluxes.
  *
- * This header provides the Fields class, which stores the conservative 
- * variables, source terms, fluxes, gradients, and RHS vectors for a 
- * simulation. Fields are stored in a contiguous, cache-friendly layout 
+ * This header provides the Fields class, which stores the conservative
+ * variables, source terms, fluxes, gradients, and RHS vectors for a
+ * simulation. Fields are stored in a contiguous, cache-friendly layout
  * for efficient access.
  *
  * @author Alessio Improta
@@ -53,7 +53,7 @@ namespace eulercpp {
  * - Face-centered values and fluxes
  * - RHS vectors for residual computations
  *
- * Provides accessors for cell-based and face-based data, and utility 
+ * Provides accessors for cell-based and face-based data, and utility
  * functions for initialization and solution updates.
  */
 class Fields {
@@ -74,7 +74,7 @@ public:
     }
 
     /**
-     * @brief Access the conservative variable W for a given cell 
+     * @brief Access the conservative variable W for a given cell
      * and variable index.
      * @param cell Index of the cell
      * @param var Index of the conservative variable
@@ -85,7 +85,7 @@ public:
     }
 
     /**
-     * @brief Const access to the conservative variable W for a given 
+     * @brief Const access to the conservative variable W for a given
      * cell and variable index.
      * @param cell Index of the cell
      * @param var Index of the conservative variable
@@ -96,12 +96,12 @@ public:
     }
 
     /**
-     * @brief Provides direct pointer access to the underlying array 
+     * @brief Provides direct pointer access to the underlying array
      * of conservative variables.
-     * 
+     *
      * Allows for high-performance bulk operations such as reading/writing
      * binary data without using W(i,v) in loops.
-     * 
+     *
      * @return Pointer to the first element of the conservatives array
      */
     inline double* Wdata() noexcept {
@@ -109,11 +109,11 @@ public:
     }
 
     /**
-     * @brief Provides const direct pointer access to the underlying 
+     * @brief Provides const direct pointer access to the underlying
      * array of conservative variables.
-     * 
+     *
      * Allows for high-performance bulk read operations on the array.
-     * 
+     *
      * @return Const pointer to the first element of the conservatives array
      */
     inline const double* Wdata() const noexcept {
@@ -161,7 +161,7 @@ public:
     }
 
     /**
-     * @brief Access the gradient of the conservative variable W 
+     * @brief Access the gradient of the conservative variable W
      * at a given cell and variable.
      * @param cell Index of the cell
      * @param var Index of the variable

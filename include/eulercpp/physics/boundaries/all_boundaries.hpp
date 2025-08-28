@@ -23,11 +23,11 @@
  * @brief Aggregated include header for all boundary condition implementations.
  *
  * This header consolidates all available boundary condition modules into a
- * single include file. It provides convenient access to every boundary 
+ * single include file. It provides convenient access to every boundary
  * condition type supported by the solver without needing to include each
  * one individually.
  *
- * @note This file is intended as a convenience header and should be used 
+ * @note This file is intended as a convenience header and should be used
  *       when multiple boundary condition types are required in a module.
  *
  * @author Alessio Improta

@@ -22,8 +22,8 @@
  * @file elements.hpp
  * @brief Definitions for mesh elements (cells) in EulerCPP.
  *
- * This file defines the Element struct representing computational 
- * mesh elements, the ElementType enum, and functions for reading 
+ * This file defines the Element struct representing computational
+ * mesh elements, the ElementType enum, and functions for reading
  * and computing element properties.
  *
  * @author Alessio Improta
@@ -65,7 +65,7 @@ enum class ElementType {
  * @struct Element
  * @brief Represents a single element (cell) in the computational mesh.
  *
- * Each Element contains identifiers, connectivity, geometry, and 
+ * Each Element contains identifiers, connectivity, geometry, and
  * precomputed properties used during CFD simulation. It stores node
  * indices, face indices, neighbor relationships, volume, centroid,
  * and distances for numerical schemes.

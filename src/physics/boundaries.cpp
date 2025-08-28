@@ -22,7 +22,7 @@
  * @file boundaries.cpp
  * @brief Implements boundary condition initialization and application.
  *
- * This module applies physical boundary conditions to ensure proper 
+ * This module applies physical boundary conditions to ensure proper
  * enforcement of physical constraints at domain boundaries.
  *
  * @author Alessio Improta
@@ -40,7 +40,7 @@ namespace eulercpp::physics {
  * @brief Apply boundary conditions to the simulation fields.
  *
  * Iterates over all boundary faces in the mesh and applies the correct
- * boundary condition. Each condition modifies the solution fluxes at 
+ * boundary condition. Each condition modifies the solution fluxes at
  * the boundary.
  *
  * Parallelized with OpenMP for large meshes.

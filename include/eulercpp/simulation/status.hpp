@@ -23,7 +23,7 @@
  * @brief Defines the Status structure tracking simulation runtime information.
  *
  * This header provides the Status structure used to monitor the
- * progress of a simulation, including iteration counts, time, CFL number 
+ * progress of a simulation, including iteration counts, time, CFL number
  * and stop conditions.
  *
  * @author Alessio Improta

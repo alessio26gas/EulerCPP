@@ -253,7 +253,7 @@ void compute_elements(Mesh& mesh, Input& input) {
             elem.centroid = n[0];
             elem.volume = 1.0;
             break;
-        
+
         case ElementType::LINEAR:
             elem.centroid = math::mid_point(n[0], n[1]);
             elem.volume = math::distance(n[0], n[1]);
