@@ -357,7 +357,9 @@ void assign_boundaries(Mesh& mesh, Input& input) {
         auto it = face_map.find(key);
         if (it != face_map.end()) {
             int f = it->second;
-            mesh.faces[f].flag = elem.tags[0];
+            if (elem.tags[0] > 0) {
+                mesh.faces[f].flag = elem.tags[0] - 1;
+            }
         }
     }
 
